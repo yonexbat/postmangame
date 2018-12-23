@@ -43,10 +43,16 @@
 
     setup() {
         //Create the cat sprite
-        let cat = new PIXI.Sprite(PIXI.loader.resources["assets/cat.png"].texture);
+        this.cat = new PIXI.Sprite(PIXI.loader.resources["assets/cat.png"].texture);
   
         //Add the cat to the stage
-        this.app.stage.addChild(cat);
+        this.app.stage.addChild(this.cat);
+        this.app.ticker.add(delta => {this.gameLoop(delta)});
+
+    }
+
+    gameLoop(delta) {
+        this.cat.x += 1;
     }
 
 }
