@@ -1,6 +1,11 @@
- export class Game {
+import {Keyboard} from "./keyboard.js";
+ 
+export class Game {
 
-    constructor(app) {
+    
+    constructor() {
+        this.direction = 1;
+        this.keyboard = new Keyboard();
     }
 
     get app() {
@@ -9,12 +14,13 @@
 
     set app(value) {
         this._app = value;
-    }
+    }    
    
 
     init() {
         this.loadCanvas();
         this.loadSprites();
+
     }
 
     loadCanvas(){
@@ -52,7 +58,18 @@
     }
 
     gameLoop(delta) {
-        this.cat.x += 1;
+        if(this.direction > 0) {
+            this.cat.x += 1;
+        } else {
+            this.cat.x -= 1;
+        }
+        if(this.cat.x > window.innerWidth)
+        {
+            this.direction = -1;
+        }
+        else if(this.cat.x < 0) {
+            this.direction = 1;
+        }
     }
 
 }

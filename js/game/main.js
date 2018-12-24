@@ -1,4 +1,4 @@
-import {Game} from "./infra/game.js"
+import {Game} from "./game.js"
 
 document.addEventListener("DOMContentLoaded", function(event) { 
     const game = new Game();
