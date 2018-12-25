@@ -6,6 +6,7 @@ export class Game {
     constructor() {
         this.direction = 1;
         this.keyboard = new Keyboard();
+        this.keyboard.addKeyboardListener(this.keyBoardListener.bind(this));
     }
 
     get app() {
@@ -20,7 +21,6 @@ export class Game {
     init() {
         this.loadCanvas();
         this.loadSprites();
-
     }
 
     loadCanvas(){
@@ -50,7 +50,8 @@ export class Game {
     setup() {
         //Create the cat sprite
         this.cat = new PIXI.Sprite(PIXI.loader.resources["assets/cat.png"].texture);
-  
+        this.cat.vx = 0;
+        this.cat.vy = 0;
         //Add the cat to the stage
         this.app.stage.addChild(this.cat);
         this.app.ticker.add(delta => {this.gameLoop(delta)});
@@ -58,6 +59,11 @@ export class Game {
     }
 
     gameLoop(delta) {
+
+        this.cat.x += this.cat.vx;
+        this.cat.y += this.cat.vy;
+
+        /*
         if(this.direction > 0) {
             this.cat.x += 1;
         } else {
@@ -69,7 +75,12 @@ export class Game {
         }
         else if(this.cat.x < 0) {
             this.direction = 1;
-        }
+        }*/
     }
 
+    keyBoardListener(keyboardEvent) {
+        console.log("keaboardevent");
+        this.cat.vx = keyboardEvent.vx;
+        this.cat.vy = keyboardEvent.vy;
+    }
 }
