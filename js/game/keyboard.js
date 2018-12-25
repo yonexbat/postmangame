@@ -5,15 +5,15 @@ export class Keyboard {
         const thisObject = this;
         window.addEventListener(
             "keydown", function(event) {
-                thisObject.downListener(this, event)
-            }, false
-        );
+                thisObject.downListener(this, event);
+                event.preventDefault();
+            }, false);
         
         window.addEventListener(
-            "keydown", function(event) {
-                thisObject.upListener(this, event)
-            }, false
-        );
+            "keyup", function(event) {
+                thisObject.upListener(this, event);
+                event.preventDefault();
+            }, false);
     } 
     
     downListener(domObject, theEvent){
