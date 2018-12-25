@@ -4,7 +4,6 @@ export class Game {
 
     
     constructor() {
-        this.direction = 1;
         this.keyboard = new Keyboard();
         this.keyboard.addKeyboardListener(this.keyBoardListener.bind(this));
     }
@@ -35,10 +34,16 @@ export class Game {
         this.app.renderer.view.style.position = "absolute";
         this.app.renderer.view.style.display = "block";
         this.app.renderer.autoResize = true;
-        this.app.renderer.resize(window.innerWidth, window.innerHeight);
+        this.screenResized();
         
         //Add the canvas that Pixi automatically created for you to the HTML document
-        window.document.body.appendChild(this.app.view);        
+        window.document.body.appendChild(this.app.view); 
+        
+        window.addEventListener('resize', this.screenResized.bind(this))
+    }
+
+    screenResized(){
+        this.app.renderer.resize(window.innerWidth, window.innerHeight);
     }
 
     loadSprites(){
@@ -55,27 +60,13 @@ export class Game {
         //Add the cat to the stage
         this.app.stage.addChild(this.cat);
         this.app.ticker.add(delta => {this.gameLoop(delta)});
-
     }
 
     gameLoop(delta) {
 
         this.cat.x += this.cat.vx;
         this.cat.y += this.cat.vy;
-
-        /*
-        if(this.direction > 0) {
-            this.cat.x += 1;
-        } else {
-            this.cat.x -= 1;
-        }
-        if(this.cat.x > window.innerWidth)
-        {
-            this.direction = -1;
-        }
-        else if(this.cat.x < 0) {
-            this.direction = 1;
-        }*/
+        
     }
 
     keyBoardListener(keyboardEvent) {
