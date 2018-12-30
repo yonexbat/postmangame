@@ -23,10 +23,11 @@ export class Scene {
     }
 
     canMoveTo(x, y, w, h) {
-        if(x < 0 || y < 0 || (x + w) >= (window.innerWidth) || (y + h) >= (window.innerWidth))
+        if(x < 0 || y < 0 || (x + w) >= (window.innerWidth) || (y + h) >= (window.innerHeight))
         {
             return false;
         } 
+        this.children.forEach(x => x.canMoveTo)
         return true;           
     }
 }
