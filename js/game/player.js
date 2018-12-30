@@ -21,7 +21,9 @@ export class Player {
             return;        
         }
         this.vx = 0;
-        this.vy = 0;        
+        this.vy = 0;  
+        let sound =  PIXI.loader.resources["assets/beep.mp3"]; 
+        sound.sound.play();     
     }
 
 }

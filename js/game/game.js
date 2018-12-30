@@ -22,6 +22,7 @@ export class Game {
         this.loadSprites();
     }
 
+
     loadCanvas(){
         let type = "WebGL";
         if(!PIXI.utils.isWebGLSupported()){
@@ -49,7 +50,8 @@ export class Game {
         PIXI.loader
             .add("assets/cat.png")
             .add("assets/wall.png")
-            .load(() => {this.load()});
+            .add("assets/beep.mp3")
+            .load(() => {this.load()});        
     }
 
     load() {
