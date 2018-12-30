@@ -1,4 +1,5 @@
 import {Player} from './player.js';
+import {Wall} from './wall.js';
 
 export class Scene {
 
@@ -10,11 +11,16 @@ export class Scene {
     }
 
     loadScene() {       
-        this.player = new Player(this);    
+        this.player = new Player(this); 
+        let wall = new Wall(this);
+        this.children.push(wall);   
     }
 
     gameLoop(delta) {
         this.player.gameLoop(delta); 
+        this.children.forEach(x => {
+            x.gameLoop(delta);
+        });
     }
 
     keyBoardListener(keyboardEvent) {       
@@ -27,7 +33,12 @@ export class Scene {
         {
             return false;
         } 
-        this.children.forEach(x => x.canMoveTo)
+        for(let childNode of this.children) {
+            if(!childNode.canMoveTo(x,y,w,h))
+            {
+                return false;
+            }
+        }      
         return true;           
     }
 }

@@ -1,7 +1,8 @@
 export class Player {
     constructor(scene){
         this.scene = scene;
-        this.sprite = new PIXI.Sprite(PIXI.loader.resources["assets/cat.png"].texture);
+        let texture = PIXI.loader.resources["assets/cat.png"].texture
+        this.sprite = new PIXI.Sprite(texture);
         this.vx = 0;
         this.vy = 0;
         this.h = 64;
@@ -22,4 +23,5 @@ export class Player {
         this.vx = 0;
         this.vy = 0;        
     }
+
 }

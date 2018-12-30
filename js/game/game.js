@@ -48,6 +48,7 @@ export class Game {
     loadSprites(){
         PIXI.loader
             .add("assets/cat.png")
+            .add("assets/wall.png")
             .load(() => {this.load()});
     }
 
