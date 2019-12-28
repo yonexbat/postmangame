@@ -1,4 +1,4 @@
-const mediumSpeed = 4;
+const mediumSpeed = 5;
 
 export class Player {
 
@@ -31,8 +31,14 @@ export class Player {
         this.sprite.y = this.sprite.y + next.vy;
 
         if (next.restricted) {
+            if(next.vx === 0) {
+                this.vx = 0;
+            }
+            if(next.vy === 0) {
+                this.vy = 0;
+            }
             let sound =  PIXI.loader.resources["assets/beep.mp3"]; 
-            sound.sound.play();
+            //sound.sound.play();
         }
           
     }
