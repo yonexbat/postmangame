@@ -1,11 +1,11 @@
-import {Keyboard} from "./keyboard.js";
-import {Scene} from "./scene.js";
- 
+import { Keyboard } from "./keyboard.js";
+import { Scene } from "./scene.js";
+
 export class Game {
 
-    
+
     constructor() {
-        this.keyboard = new Keyboard();           
+        this.keyboard = new Keyboard();
     }
 
     get app() {
@@ -14,18 +14,16 @@ export class Game {
 
     set app(value) {
         this._app = value;
-    }    
-   
+    }
 
     init() {
         this.loadCanvas();
-        this.loadSprites();
+        this.loadAssets();
     }
 
-
-    loadCanvas(){
+    loadCanvas() {
         let type = "WebGL";
-        if(!PIXI.utils.isWebGLSupported()){
+        if (!PIXI.utils.isWebGLSupported()) {
             type = "canvas"
         };
         PIXI.utils.sayHello(type);
@@ -36,33 +34,34 @@ export class Game {
         this.app.renderer.view.style.display = "block";
         this.app.renderer.autoResize = true;
         this.screenResized();
-        
+
         //Add the canvas that Pixi automatically created for you to the HTML document
-        window.document.body.appendChild(this.app.view);         
+        window.document.body.appendChild(this.app.view);
         window.addEventListener('resize', this.screenResized.bind(this))
     }
 
-    screenResized(){
+    screenResized() {
         this.app.renderer.resize(window.innerWidth, window.innerHeight);
     }
 
-    loadSprites(){
+    loadAssets() {
         PIXI.loader
             .add("assets/cat.png")
             .add("assets/wall.png")
+            .add("assets/exit.png")
             .add("assets/beep.mp3")
-            .load(() => {this.load()});        
+            .load(() => { this.load() });
     }
 
     load() {
 
         this.scene = new Scene(this.app.stage);
         this.scene.loadScene();
-        this.keyboard.addKeyboardListener(this.scene.keyBoardListener.bind(this.scene)); 
-        this.app.ticker.add(delta => {this.gameLoop(delta)});
+        this.keyboard.addKeyboardListener(this.scene.keyBoardListener.bind(this.scene));
+        this.app.ticker.add(delta => { this.gameLoop(delta) });
     }
 
     gameLoop(delta) {
-        this.scene.gameLoop(delta);      
+        this.scene.gameLoop(delta);
     }
 }
