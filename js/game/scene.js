@@ -1,6 +1,7 @@
 import { Player } from './player.js';
 import { Wall } from './wall.js';
 import { Exit } from './exit.js';
+import { MonsterEggly } from './monstereggly.js';
 
 export class Scene {
 
@@ -15,8 +16,10 @@ export class Scene {
         this.player = new Player(this);
         let wall = new Wall(this);
         let exit = new Exit(this);
+        let monsterEggli = new MonsterEggly(this);
         this.children.push(wall);
         this.children.push(exit);
+        this.children.push(monsterEggli);
     }
 
     gameLoop(delta) {

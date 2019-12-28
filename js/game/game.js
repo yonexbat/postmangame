@@ -49,6 +49,7 @@ export class Game {
             .add("assets/cat.png")
             .add("assets/wall.png")
             .add("assets/exit.png")
+            .add("assets/monsterEggly.png")
             .add("assets/beep.mp3")
             .load(() => { this.load() });
     }
