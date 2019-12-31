@@ -1,8 +1,11 @@
+import { GameObject } from "./gameobject.js";
+
 const mediumSpeed = 5;
 
-export class Player {
+export class Player extends GameObject {
 
     constructor(scene){
+        super();
         this.scene = scene;
         let texture = PIXI.loader.resources["assets/cat.png"].texture
         this.sprite = new PIXI.Sprite(texture);
@@ -11,8 +14,13 @@ export class Player {
         this.h = 64;
         this.w = 64;
         this.speed = mediumSpeed;
-        this.scene.stage.addChild(this.sprite);
+        this.scene.levelContainer.addChild(this.sprite);
     }  
+
+    eatenByMonster() {
+        this.x = 0;
+        this.y = 0;
+    }
     
     gameLoop(delta) {
 

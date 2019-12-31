@@ -12,7 +12,7 @@ export class Wall extends GameObject {
         this.sprite = new PIXI.extras.TilingSprite(texture, this.w, this.h);
         this.sprite.x = 128;
         this.sprite.y = 128;
-        this.scene.stage.addChild(this.sprite);
+        this.scene.levelContainer.addChild(this.sprite);
     }
 
     gameLoop(delta) {

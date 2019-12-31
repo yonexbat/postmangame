@@ -29,7 +29,9 @@ export class Game {
         PIXI.utils.sayHello(type);
 
         //Create a Pixi Application    
-        this.app = new PIXI.Application();
+        this.app = new PIXI.Application({
+            antialias: true,
+        });
         this.app.renderer.view.style.position = "absolute";
         this.app.renderer.view.style.display = "block";
         this.app.renderer.autoResize = true;
