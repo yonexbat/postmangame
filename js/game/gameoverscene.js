@@ -1,13 +1,13 @@
 export class GameOverScene {
 
-    constructor(stage) {
-        this.stage = stage;  
+    constructor(gameContext) {
+        this.gameContext = gameContext;  
         this.loadScene();  
     }
 
     loadScene() {
         this.levelContainer = new PIXI.Container();
-        this.stage.addChild(this.levelContainer);
+        this.gameContext.application.stage.addChild(this.levelContainer);
 
         let wellDoneText = new PIXI.Text('Pass chley uf Aute!',
         { 
@@ -26,6 +26,10 @@ export class GameOverScene {
 
     get visible() {
         return this.levelContainer.visible;
+    }
+
+    keyBoardListener(keyboardEvent) {       
+        this.player.vy = keyboardEvent.vy;
     }
 
 }

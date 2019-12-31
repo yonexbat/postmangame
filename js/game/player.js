@@ -4,9 +4,9 @@ const mediumSpeed = 5;
 
 export class Player extends GameObject {
 
-    constructor(scene){
+    constructor(level){
         super();
-        this.scene = scene;
+        this.level = level;
         let texture = PIXI.loader.resources["assets/cat.png"].texture
         this.sprite = new PIXI.Sprite(texture);
         this.vx = 0;
@@ -14,7 +14,7 @@ export class Player extends GameObject {
         this.h = 64;
         this.w = 64;
         this.speed = mediumSpeed;
-        this.scene.levelContainer.addChild(this.sprite);
+        this.level.levelContainer.addChild(this.sprite);
     }  
 
     eatenByMonster() {
@@ -33,7 +33,7 @@ export class Player extends GameObject {
             vy: this.vy*this.speed,
         };
         
-        const next = this.scene.canMoveTo(now);
+        const next = this.level.canMoveTo(now);
 
         this.sprite.x = this.sprite.x + next.vx;
         this.sprite.y = this.sprite.y + next.vy;

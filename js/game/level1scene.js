@@ -5,8 +5,8 @@ import { MonsterEggly } from './monstereggly.js';
 
 export class Level1Scene {
 
-    constructor(stage) {
-        this.stage = stage;
+    constructor(gameContext) {
+        this.gameContext = gameContext;
         this.children = [];
         this.width = 0;
         this.heigth = 0;
@@ -19,7 +19,7 @@ export class Level1Scene {
     loadScene() {
              
         this.levelContainer = new PIXI.Container();
-        this.stage.addChild(this.levelContainer);
+        this.gameContext.application.stage.addChild(this.levelContainer);
 
         let wall = new Wall(this);
         let exit = new Exit(this);

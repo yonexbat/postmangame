@@ -58,7 +58,12 @@ export class Game {
 
     load() {
 
-        this.scene = new Scene(this.app.stage);       
+        const gameContext = {
+            application: this.app,
+            keyboard: this.keyboard,            
+        };     
+
+        this.scene = new Scene(gameContext);       
         this.keyboard.addKeyboardListener(this.scene.keyBoardListener.bind(this.scene));
         this.app.ticker.add(delta => { this.gameLoop(delta) });
     }

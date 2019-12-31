@@ -5,6 +5,7 @@ export class Keyboard {
         
         this.vx = 0;
         this.vy = 0;
+        this.key = null;
         this.keyboardlisteners = [];
 
         //Register Event listeners
@@ -53,7 +54,11 @@ export class Keyboard {
                     this.vx = 1;
                     this.fireEvent();
                 }
-                break;
+                break;  
+            default:
+                this.key = theEvent.key;
+                this.fireEvent();       
+                break;   
         }
     }
 
@@ -80,7 +85,8 @@ export class Keyboard {
     fireEvent() {
         const event = {
             vx: this.vx,
-            vy: this.vy
+            vy: this.vy,
+            key: this.key,
         };        
         this.keyboardlisteners.forEach((listener) => {
             listener(event);

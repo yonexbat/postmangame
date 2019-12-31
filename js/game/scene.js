@@ -4,15 +4,15 @@ import { LevelCompletedScene } from './levelcompletedscene.js';
 
 export class Scene {
 
-    constructor(stage) {
-        this.stage = stage;    
+    constructor(gameContext) {
+        this.gameContext = gameContext;
         this.loadScene();    
     }
 
     loadScene() {
-        this.level1Scene = new Level1Scene(this.stage);
-        this.gameOverScene = new GameOverScene(this.stage);
-        this.leveCompletedScene = new LevelCompletedScene(this.stage);
+        this.level1Scene = new Level1Scene(this.gameContext);
+        this.gameOverScene = new GameOverScene(this.gameContext);
+        this.leveCompletedScene = new LevelCompletedScene(this.gameContext);
 
         this.level1Scene.addGameOverListener((result) => {
             this.gameOverScene.visible = true;
@@ -30,6 +30,8 @@ export class Scene {
     }
 
     keyBoardListener(keyboardEvent) {
-        this.level1Scene.keyBoardListener(keyboardEvent);        
+        this.level1Scene.keyBoardListener(keyboardEvent);      
+        this.leveCompletedScene.keyBoardListener(keyboardEvent);
+        this.gameOverScene.keyBoardListener(keyboardEvent);  
     }
 }

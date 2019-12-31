@@ -1,13 +1,13 @@
 export class LevelCompletedScene {
 
-    constructor(stage) {
-        this.stage = stage;  
+    constructor(gameContext) {
+        this.gameContext = gameContext;  
         this.loadScene();  
     }
 
     loadScene() {
         this.levelContainer = new PIXI.Container();
-        this.stage.addChild(this.levelContainer);
+        this.gameContext.application.stage.addChild(this.levelContainer);
 
         let wellDoneText = new PIXI.Text('Guet gmacht Aute!',
         { 
@@ -26,6 +26,15 @@ export class LevelCompletedScene {
 
     get visible() {
         return this.levelContainer.visible;
+    }
+
+    keyBoardListener(keyboardEvent) { 
+        if(this.visible) {
+           
+            if(keyboardEvent.key === 'R' || keyboardEvent.key === 'r') {
+                location.reload();
+            }
+        }              
     }
 
 }
