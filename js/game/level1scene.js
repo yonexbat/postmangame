@@ -10,7 +10,11 @@ export class Level1Scene {
         this.children = [];
         this.width = 0;
         this.heigth = 0;
+        this.gameoverListener = [];
+        this.levelCompletedListener = [];
+        this.loadScene();
     }
+    
 
     loadScene() {
              
@@ -40,7 +44,21 @@ export class Level1Scene {
         this.player.vy = keyboardEvent.vy;
     }
 
-    
+    triggerGameOver() {
+        this.gameoverListener.forEach(gameOverFn => gameOverFn());
+    }
+
+    triggerLevelCompleted() {
+        this.levelCompletedListener.forEach(completeFn => completeFn());
+    }
+
+    addGameOverListener(fn) {
+        this.gameoverListener.push(fn);
+    }
+
+    addLevelCompletedListener(fn) {
+        this.levelCompletedListener.push(fn);
+    }
 
     canMoveTo(playerInfo) {
         const x = playerInfo.x + playerInfo.vx;
@@ -68,5 +86,13 @@ export class Level1Scene {
             vx: playerInfo.vx,
             vy: playerInfo.vy,
         };
+    }
+
+    set visible(val) {
+        this.levelContainer.visible = val;
+    }
+
+    get visible() {
+        return this.levelContainer.visible;
     }
 }

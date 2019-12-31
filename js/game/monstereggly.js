@@ -21,7 +21,7 @@ export class MonsterEggly extends GameObject {
             this.speed *= -1;
         }
         if(this.isPlayerOnIt()) {
-            this.level.player.eatenByMonster();
+            this.level.triggerGameOver();
         }
         
     }

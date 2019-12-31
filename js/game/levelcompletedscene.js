@@ -1,4 +1,4 @@
-export class GameOverScene {
+export class LevelCompletedScene {
 
     constructor(stage) {
         this.stage = stage;  
@@ -9,7 +9,7 @@ export class GameOverScene {
         this.levelContainer = new PIXI.Container();
         this.stage.addChild(this.levelContainer);
 
-        let wellDoneText = new PIXI.Text('Pass chley uf Aute!',
+        let wellDoneText = new PIXI.Text('Guet gmacht Aute!',
         { 
              fontFamily: 'Arial', 
              fontSize: 72, 

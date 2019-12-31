@@ -12,23 +12,13 @@ export class Exit extends GameObject {
 
         this.sprite.x = 256;
         this.sprite.y = 256;
-        this.level.levelContainer.addChild(this.sprite);
-
-        this.wellDoneText = new PIXI.Text('Guet gmacht Aute!',
-         { 
-             fontFamily: 'Arial', 
-             fontSize: 72, 
-             fill: 0xff1010, 
-             align: 'center' 
-        });      
+        this.level.levelContainer.addChild(this.sprite); 
     }
 
     gameLoop(delta) {
         if(this.isPlayerOnIt()) {
-            this.level.stage.addChild(this.wellDoneText);
-        } else {
-            this.level.stage.removeChild(this.wellDoneText);
-        }
+            this.level.triggerLevelCompleted();            
+        } 
     }
 
     canMoveTo(player) {
