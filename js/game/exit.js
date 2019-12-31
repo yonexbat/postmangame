@@ -2,17 +2,17 @@ import { GameObject } from "./gameobject.js";
 
 export class Exit extends GameObject {
 
-    constructor(scene) {
+    constructor(level) {
         super();
 
-        this.scene = scene;
+        this.level = level;
 
         let texture = PIXI.loader.resources["assets/exit.png"].texture
         this.sprite = new PIXI.Sprite(texture);
 
         this.sprite.x = 256;
         this.sprite.y = 256;
-        this.scene.levelContainer.addChild(this.sprite);
+        this.level.levelContainer.addChild(this.sprite);
 
         this.wellDoneText = new PIXI.Text('Guet gmacht Aute!',
          { 
@@ -25,9 +25,9 @@ export class Exit extends GameObject {
 
     gameLoop(delta) {
         if(this.isPlayerOnIt()) {
-            this.scene.stage.addChild(this.wellDoneText);
+            this.level.stage.addChild(this.wellDoneText);
         } else {
-            this.scene.stage.removeChild(this.wellDoneText);
+            this.level.stage.removeChild(this.wellDoneText);
         }
     }
 

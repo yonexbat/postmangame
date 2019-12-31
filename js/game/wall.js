@@ -2,9 +2,9 @@ import { GameObject } from './gameobject.js';
 
 export class Wall extends GameObject {
 
-    constructor(scene) {
+    constructor(level) {
         super();
-        this.scene = scene;
+        this.level = level;
         this.w = 64;
         this.h = 128;
 
@@ -12,7 +12,7 @@ export class Wall extends GameObject {
         this.sprite = new PIXI.extras.TilingSprite(texture, this.w, this.h);
         this.sprite.x = 128;
         this.sprite.y = 128;
-        this.scene.levelContainer.addChild(this.sprite);
+        this.level.levelContainer.addChild(this.sprite);
     }
 
     gameLoop(delta) {

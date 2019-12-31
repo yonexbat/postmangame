@@ -4,7 +4,7 @@ export class MonsterEggly extends GameObject {
 
     constructor(level){
         super();
-        this.scene = level;
+        this.level = level;
         let texture = PIXI.loader.resources["assets/monsterEggly.png"].texture
         this.sprite = new PIXI.Sprite(texture);
         this.sprite.x = 64*6;
@@ -12,7 +12,7 @@ export class MonsterEggly extends GameObject {
         
         this.speed = 3;
 
-        this.scene.levelContainer.addChild(this.sprite);
+        this.level.levelContainer.addChild(this.sprite);
     }  
 
     gameLoop(delta) {
@@ -21,7 +21,7 @@ export class MonsterEggly extends GameObject {
             this.speed *= -1;
         }
         if(this.isPlayerOnIt()) {
-            this.scene.player.eatenByMonster();
+            this.level.player.eatenByMonster();
         }
         
     }
