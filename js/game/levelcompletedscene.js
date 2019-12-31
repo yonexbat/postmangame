@@ -9,15 +9,16 @@ export class LevelCompletedScene {
         this.levelContainer = new PIXI.Container();
         this.gameContext.application.stage.addChild(this.levelContainer);
 
-        let wellDoneText = new PIXI.Text('Guet gmacht Aute!',
+        let wellDoneText = new PIXI.Text('Guet gmacht Aute!\n Drück R, um no einisch ...',
         { 
              fontFamily: 'Arial', 
              fontSize: 72, 
-             fill: 0xff1010, 
+             fill: 0x0010ff, 
              align: 'center' 
         });      
         this.levelContainer.addChild(wellDoneText);
         this.levelContainer.visible = false;
+        this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
 
     set visible(val) {
@@ -32,7 +33,7 @@ export class LevelCompletedScene {
         if(this.visible) {
            
             if(keyboardEvent.key === 'R' || keyboardEvent.key === 'r') {
-                location.reload();
+                this.gameContext.restart();
             }
         }              
     }

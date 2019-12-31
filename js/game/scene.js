@@ -30,8 +30,6 @@ export class Scene {
     }
 
     keyBoardListener(keyboardEvent) {
-        this.level1Scene.keyBoardListener(keyboardEvent);      
-        this.leveCompletedScene.keyBoardListener(keyboardEvent);
-        this.gameOverScene.keyBoardListener(keyboardEvent);  
+        this.level1Scene.keyBoardListener(keyboardEvent);                      
     }
 }

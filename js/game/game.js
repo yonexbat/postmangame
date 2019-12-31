@@ -60,7 +60,8 @@ export class Game {
 
         const gameContext = {
             application: this.app,
-            keyboard: this.keyboard,            
+            keyboard: this.keyboard,  
+            restart: this.restartGame,          
         };     
 
         this.scene = new Scene(gameContext);       
@@ -71,4 +72,9 @@ export class Game {
     gameLoop(delta) {
         this.scene.gameLoop(delta);
     }
+
+    restartGame() {
+        location.reload();
+    }
+
 }
