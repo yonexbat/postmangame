@@ -60,6 +60,7 @@ export class Game {
             .add("assets/playerleft_2.png")
             .add("assets/playerright_1.png")
             .add("assets/playerright_2.png")
+            .add("assets/grass.png")
             .add("assets/cat.png")
             .add("assets/wall.png")
             .add("assets/exit.png")           

@@ -1,17 +1,15 @@
 import { GameObject } from './gameobject.js';
 
-export class Wall extends GameObject {
+export class Floor extends GameObject {
 
     constructor(level) {
         super();
         this.level = level;
-        this.w = 64;
-        this.h = 128;
 
-        let texture = PIXI.Loader.shared.resources["assets/wall.png"].texture
-        this.sprite = new PIXI.TilingSprite(texture, this.w, this.h);
-        this.sprite.x = 128;
-        this.sprite.y = 128;
+        let texture = PIXI.Loader.shared.resources["assets/grass.png"].texture
+        this.sprite = new PIXI.TilingSprite(texture, 64*10000, 64*10000);
+        this.sprite.x = 0;
+        this.sprite.y = 0;
         this.level.levelContainer.addChild(this.sprite);
     }
 

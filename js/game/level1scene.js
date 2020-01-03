@@ -2,6 +2,7 @@ import { Player } from './player.js';
 import { Wall } from './wall.js';
 import { Exit } from './exit.js';
 import { MonsterEggly } from './monstereggly.js';
+import { Floor } from './floor.js';
 
 export class Level1Scene {
 
@@ -21,6 +22,7 @@ export class Level1Scene {
         this.levelContainer = new PIXI.Container();
         this.gameContext.application.stage.addChild(this.levelContainer);
 
+        let floor = new Floor(this);
         let wall = new Wall(this);
         let exit = new Exit(this);
         let monsterEggli = new MonsterEggly(this);
