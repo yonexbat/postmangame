@@ -26,8 +26,8 @@ export class GameObject {
         
         if (this.level && this.level.player) {
 
-            const x = this.level.player.sprite.x;
-            const y = this.level.player.sprite.y;
+            const x = this.level.player.x;
+            const y = this.level.player.y;
             const h = this.level.player.h;
             const w = this.level.player.w;
 

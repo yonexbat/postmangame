@@ -7,7 +7,7 @@ export class Exit extends GameObject {
 
         this.level = level;
 
-        let texture = PIXI.loader.resources["assets/exit.png"].texture
+        let texture = PIXI.Loader.shared.resources["assets/exit.png"].texture
         this.sprite = new PIXI.Sprite(texture);
 
         this.sprite.x = 256;

@@ -7,8 +7,21 @@ export class Player extends GameObject {
     constructor(level){
         super();
         this.level = level;
-        let texture = PIXI.loader.resources["assets/playerright_1.png"].texture
-        this.sprite = new PIXI.Sprite(texture);
+
+        this.sprite = new PIXI.Container();
+        this.level.levelContainer.addChild(this.sprite);
+
+        let textures = [
+            PIXI.Loader.shared.resources["assets/playerright_1.png"].texture,
+            PIXI.Loader.shared.resources["assets/playerright_2.png"].texture,
+        ];
+
+        
+        this.animatedSprites = new PIXI.AnimatedSprite(textures);
+        this.animatedSprites.animationSpeed = 0.167; 
+
+        this.sprite.addChild(this.animatedSprites);
+        
         this.vx = 0;
         this.vy = 0;
         this.h = 64;
@@ -35,6 +48,21 @@ export class Player extends GameObject {
         
         const next = this.level.canMoveTo(now);
 
+        if(next.vx !== 0 || next.vy !== 0)
+        {
+            if(next.vx > 0) {
+                this.animatedSprites.scale.x = 1;
+                this.animatedSprites.x = 0;
+
+            } else if(next.vx < 0) {
+                this.animatedSprites.scale.x = -1;
+                this.animatedSprites.x = 64;
+            }
+            this.animatedSprites.play();
+        } else {
+            this.animatedSprites.stop();
+        }
+
         this.sprite.x = this.sprite.x + next.vx;
         this.sprite.y = this.sprite.y + next.vy;
 
@@ -45,7 +73,7 @@ export class Player extends GameObject {
             if(next.vy === 0) {
                 this.vy = 0;
             }
-            let sound =  PIXI.loader.resources["assets/beep.mp3"]; 
+            let sound =  PIXI.Loader.shared.resources["assets/beep.mp3"]; 
             sound.sound.play();
         }
           
