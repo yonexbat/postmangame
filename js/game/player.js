@@ -7,7 +7,7 @@ export class Player extends GameObject {
     constructor(level){
         super();
         this.level = level;
-        let texture = PIXI.loader.resources["assets/cat.png"].texture
+        let texture = PIXI.loader.resources["assets/playerright_1.png"].texture
         this.sprite = new PIXI.Sprite(texture);
         this.vx = 0;
         this.vy = 0;

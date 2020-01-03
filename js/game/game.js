@@ -24,7 +24,7 @@ export class Game {
     loadCanvas() {
         let type = "WebGL";
         if (!PIXI.utils.isWebGLSupported()) {
-            type = "canvas"
+            type = "canvas";
         };
         PIXI.utils.sayHello(type);
 
@@ -56,9 +56,13 @@ export class Game {
 
     loadAssets() {
         PIXI.loader
+            .add("assets/playerleft_1.png")
+            .add("assets/playerleft_2.png")
+            .add("assets/playerright_1.png")
+            .add("assets/playerright_2.png")
             .add("assets/cat.png")
             .add("assets/wall.png")
-            .add("assets/exit.png")
+            .add("assets/exit.png")           
             .add("assets/monsterEggly.png")
             .add("assets/beep.mp3")
             .load(() => { this.load() });
