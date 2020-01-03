@@ -34,7 +34,7 @@ export class Game {
         });
         this.app.renderer.view.style.position = "absolute";
         this.app.renderer.view.style.display = "block";
-        this.app.renderer.autoResize = true;
+        this.app.renderer.autoDensity = true;
         this.app.stage.interactive = true;
 
         this.screenResized();
@@ -55,7 +55,7 @@ export class Game {
     }
 
     loadAssets() {
-        PIXI.loader
+        PIXI.Loader.shared
             .add("assets/playerleft_1.png")
             .add("assets/playerleft_2.png")
             .add("assets/playerright_1.png")
