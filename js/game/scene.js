@@ -5,12 +5,13 @@ import { LevelCompletedScene } from './levelcompletedscene.js';
 export class Scene {
 
     constructor(gameContext) {
-        this.gameContext = gameContext;
-        this.loadScene();    
+        this.gameContext = gameContext;  
     }
 
-    loadScene() {
+    async load() {
         this.level1Scene = new Level1Scene(this.gameContext);
+        await this.level1Scene.load();
+        
         this.gameOverScene = new GameOverScene(this.gameContext);
         this.leveCompletedScene = new LevelCompletedScene(this.gameContext);
 

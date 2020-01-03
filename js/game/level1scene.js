@@ -12,38 +12,55 @@ export class Level1Scene {
         this.width = 0;
         this.heigth = 0;
         this.gameoverListener = [];
-        this.levelCompletedListener = [];
-        this.loadScene();
+        this.levelCompletedListener = [];        
     }
     
 
-    loadScene() {
+    async load() {
              
         this.levelContainer = new PIXI.Container();
         this.gameContext.application.stage.addChild(this.levelContainer);
 
         let floor = new Floor(this);
-        let wall = new Wall(this);
+
+        
+        let level = await this.loadLevel();
+        await this.loadWalls(level.walls);
+
+        
         let exit = new Exit(this);
         let monsterEggli = new MonsterEggly(this);
         
         this.player = new Player(this);
         
-        this.children.push(wall);
         this.children.push(exit);
         this.children.push(monsterEggli);
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
+
+    async loadLevel() {
+        let levelString =  await fetch('assets/level/level1.json');
+        return levelString.json();
+    }
+
+    async loadWalls(wallData) {
+        for(let wallinstanceDate of wallData) {
+            let wall = new Wall(this, wallinstanceDate);
+            await wall.load();
+            this.children.push(wall);
+        }
+    }
+
 
     gameLoop(delta) {
         this.player.gameLoop(delta);
         this.children.forEach(x => {
             x.gameLoop(delta);
         });
-        this.cetnerPlayer();
+        this.centerPlayer();
     }
 
-    cetnerPlayer() {
+    centerPlayer() {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
         const deltaX = this.player.x - centerX;
@@ -84,7 +101,7 @@ export class Level1Scene {
         const w = playerInfo.w;
         const h = playerInfo.h;
 
-        if (x < 0 || y < 0 || (x + w) >= (window.innerWidth) || (y + h) >= (window.innerHeight)) {
+        if (x < 0 || y < 0) {
             return {
                 restricted: true,
                 vx: 0,

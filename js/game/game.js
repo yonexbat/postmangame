@@ -69,7 +69,7 @@ export class Game {
             .load(() => { this.load() });
     }
 
-    load() {
+    async load() {
 
         const gameContext = {
             application: this.app,
@@ -77,7 +77,8 @@ export class Game {
             restart: this.restartGame,          
         };     
 
-        this.scene = new Scene(gameContext);              
+        this.scene = new Scene(gameContext);        
+        await this.scene.load();      
         this.app.ticker.add(delta => { this.gameLoop(delta) });
     }
 
