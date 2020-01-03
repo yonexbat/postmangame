@@ -96,4 +96,8 @@ export class GameObject {
             vy: playerInfo.vy,
         };
     }
+
+    async load() {
+
+    }
 }

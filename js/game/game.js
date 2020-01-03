@@ -80,6 +80,7 @@ export class Game {
         this.scene = new Scene(gameContext);        
         await this.scene.load();      
         this.app.ticker.add(delta => { this.gameLoop(delta) });
+        window.focus();
     }
 
     gameLoop(delta) {

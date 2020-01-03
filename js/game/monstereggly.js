@@ -2,37 +2,80 @@ import { GameObject } from "./gameobject.js";
 
 export class MonsterEggly extends GameObject {
 
-    constructor(level){
+    constructor(level, monsterData) {
         super();
         this.level = level;
         let texture = PIXI.Loader.shared.resources["assets/monsterEggly.png"].texture
         this.sprite = new PIXI.Sprite(texture);
-        this.sprite.x = 64*6;
-        this.sprite.y = 0;
-        
-        this.speed = 3;
+
+
+        this.x = monsterData.x * 64;
+        this.y = monsterData.y * 64;
+
+        this.dir = monsterData.dir;
+        this.dist = monsterData.dist;
+
+        this.speed = monsterData.speed;
 
         this.level.levelContainer.addChild(this.sprite);
-    }  
-
-    gameLoop(delta) {
-        this.sprite.y = this.sprite.y + this.speed;    
-        if(this.sprite.y + this.h > window.innerHeight || this.sprite.y <= 0) {
-            this.speed *= -1;
-        }
-        if(this.isPlayerOnIt()) {
-            this.level.triggerGameOver();
-        }
-        
+        this.current = 0;
+        this.currentFactor = 1;
     }
 
-   
+    async load() {
+
+        this.vx = 0;
+        this.vy = 0;
+
+        switch (this.dir) {
+            case "north":
+                this.vx = 0;
+                this.vy = -1;
+                break;
+            case "south":
+                this.vx = 0;
+                this.vy = 1;
+                break;
+            case "west":
+                this.vx = -1;
+                this.vy = 0;
+                break;
+            case "east": 
+                this.vx = 1;
+                this.vy = 0;
+                break;
+        }
+        this.vx *= this.speed;
+        this.vy *= this.speed;
+        
+        this.iterations = this.dist*64 / this.speed;
+    }
+
+    gameLoop(delta) {
+
+        this.x = this.x + this.vx * this.currentFactor;
+        this.y = this.y + this.vy * this.currentFactor;
+
+        if(this.current >= this.iterations) {
+            this.currentFactor = -1;
+        }
+        if(this.current <= 0) {
+            this.currentFactor = 1;
+        }
+        this.current += this.currentFactor;
+        
+        if (this.isPlayerOnIt()) {
+            this.level.triggerGameOver();
+        }
+    }
+
+
 
     canMoveTo(player) {
         return {
             restricted: false,
             vx: player.vx,
             vy: player.vy,
-        };        
+        };
     }
 }

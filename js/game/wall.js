@@ -18,9 +18,6 @@ export class Wall extends GameObject {
         this.y = wallinstanceData.y * 64;
     }
 
-    async load() {
-
-    }
 
     gameLoop(delta) {
 

@@ -2,7 +2,7 @@ import { GameObject } from "./gameobject.js";
 
 export class Exit extends GameObject {
 
-    constructor(level) {
+    constructor(level, exitData) {
         super();
 
         this.level = level;
@@ -10,8 +10,9 @@ export class Exit extends GameObject {
         let texture = PIXI.Loader.shared.resources["assets/exit.png"].texture
         this.sprite = new PIXI.Sprite(texture);
 
-        this.sprite.x = 256;
-        this.sprite.y = 256;
+        this.x = exitData.x * 64;
+        this.y = exitData.y * 64;
+        
         this.level.levelContainer.addChild(this.sprite); 
     }
 

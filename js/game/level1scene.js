@@ -24,17 +24,19 @@ export class Level1Scene {
         let floor = new Floor(this);
 
         
-        let level = await this.loadLevel();
-        await this.loadWalls(level.walls);
+        let levelData = await this.loadLevel();
+        await this.loadWalls(levelData.walls);
 
-        
-        let exit = new Exit(this);
-        let monsterEggli = new MonsterEggly(this);
-        
-        this.player = new Player(this);
-        
+        let exit = new Exit(this, levelData.exit);
         this.children.push(exit);
-        this.children.push(monsterEggli);
+
+        await this.loadMonsters(levelData.monsters);
+        
+        this.player = new Player(this, levelData.player);
+        
+        
+        
+        
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
 
@@ -48,6 +50,14 @@ export class Level1Scene {
             let wall = new Wall(this, wallinstanceDate);
             await wall.load();
             this.children.push(wall);
+        }
+    }
+
+    async loadMonsters(monsterData) {
+        for(let monsterinstanceData of monsterData) {
+            let monster = new MonsterEggly(this, monsterinstanceData);
+            await monster.load();
+            this.children.push(monster);
         }
     }
 

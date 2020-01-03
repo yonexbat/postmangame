@@ -4,7 +4,7 @@ const mediumSpeed = 5;
 
 export class Player extends GameObject {
 
-    constructor(level){
+    constructor(level, playerData){
         super();
         this.level = level;
 
@@ -26,6 +26,10 @@ export class Player extends GameObject {
         this.vy = 0;
         this.h = 64;
         this.w = 64;
+        
+        this.x = playerData.x * 64;
+        this.y = playerData.y * 64;
+
         this.speed = mediumSpeed;
         this.level.levelContainer.addChild(this.sprite);
     }  
