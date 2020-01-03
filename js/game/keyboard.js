@@ -23,6 +23,18 @@ export class Keyboard {
             }, false);
         
     } 
+
+    pointerDown() {
+        console.log('pointer down');
+    }
+
+    pointerUp() {
+        console.log('pointer down');
+    }
+
+    pointerMove() {
+        //console.log('pointer move');
+    }
     
     addKeyboardListener(listener){
         this.keyboardlisteners.push(listener);

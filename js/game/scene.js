@@ -28,8 +28,4 @@ export class Scene {
     gameLoop(delta) {
        this.level1Scene.gameLoop(delta);
     }
-
-    keyBoardListener(keyboardEvent) {
-        this.level1Scene.keyBoardListener(keyboardEvent);                      
-    }
 }

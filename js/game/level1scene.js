@@ -30,6 +30,7 @@ export class Level1Scene {
         this.children.push(wall);
         this.children.push(exit);
         this.children.push(monsterEggli);
+        this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
 
     gameLoop(delta) {
@@ -37,11 +38,26 @@ export class Level1Scene {
         this.children.forEach(x => {
             x.gameLoop(delta);
         });
+        this.cetnerPlayer();
+    }
+
+    cetnerPlayer() {
+        const centerX = window.innerWidth / 2;
+        const centerY = window.innerHeight / 2;
+        const deltaX = this.player.x - centerX;
+        const deltaY = this.player.y - centerY;
+        this.levelContainer.x = -deltaX;
+        this.levelContainer.y = -deltaY;
     }
 
     keyBoardListener(keyboardEvent) {
         this.player.vx = keyboardEvent.vx;
         this.player.vy = keyboardEvent.vy;
+
+        
+        this.levelContainer.x = this.player.x;
+        this.levelContainer.y = this.player.y;
+
     }
 
     triggerGameOver() {

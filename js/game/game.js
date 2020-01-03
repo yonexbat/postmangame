@@ -35,7 +35,15 @@ export class Game {
         this.app.renderer.view.style.position = "absolute";
         this.app.renderer.view.style.display = "block";
         this.app.renderer.autoResize = true;
+        this.app.stage.interactive = true;
+
         this.screenResized();
+
+        this.app.renderer.plugins.interaction.on( 'pointerdown', function() { console.log('mousedown') } );
+
+        this.app.stage.on('pointerdown', (event) =>  {console.log('pointer down')});
+        this.app.stage.on('pointerup', (event) => this.keyboard.pointerUp(event));
+        this.app.stage.on('pointermove', (event) => this.keyboard.pointerMove(event));
 
         //Add the canvas that Pixi automatically created for you to the HTML document
         window.document.body.appendChild(this.app.view);
@@ -64,8 +72,7 @@ export class Game {
             restart: this.restartGame,          
         };     
 
-        this.scene = new Scene(gameContext);       
-        this.keyboard.addKeyboardListener(this.scene.keyBoardListener.bind(this.scene));
+        this.scene = new Scene(gameContext);              
         this.app.ticker.add(delta => { this.gameLoop(delta) });
     }
 
