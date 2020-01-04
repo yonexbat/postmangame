@@ -4,7 +4,7 @@ import { Exit } from './exit.js';
 import { MonsterEggly } from './monstereggly.js';
 import { Floor } from './floor.js';
 
-export class Level1Scene {
+export class LevelScene {
 
     constructor(gameContext) {
         this.gameContext = gameContext;
@@ -16,7 +16,7 @@ export class Level1Scene {
     }
     
 
-    async load() {
+    async load(level) {
              
         this.levelContainer = new PIXI.Container();
         this.gameContext.application.stage.addChild(this.levelContainer);
@@ -24,7 +24,7 @@ export class Level1Scene {
         let floor = new Floor(this);
 
         
-        let levelData = await this.loadLevel();
+        let levelData = await this.loadLevel(level);
         await this.loadWalls(levelData.walls);
 
         let exit = new Exit(this, levelData.exit);
@@ -34,14 +34,12 @@ export class Level1Scene {
         
         this.player = new Player(this, levelData.player);
         
-        
-        
-        
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
 
-    async loadLevel() {
-        let levelString =  await fetch('assets/level/level1.json');
+    async loadLevel(level) {
+        const url = `assets/level/level${level}.json`;
+        let levelString =  await fetch(url);
         return levelString.json();
     }
 

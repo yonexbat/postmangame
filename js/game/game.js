@@ -55,13 +55,14 @@ export class Game {
     }
 
     loadAssets() {
+        
+        for(let i=1; i<= 6; i++) {
+            const frameImage = `assets/player/frame-${i}_64.png`;
+            PIXI.Loader.shared.add(frameImage)
+        }
+
         PIXI.Loader.shared
-            .add("assets/playerleft_1.png")
-            .add("assets/playerleft_2.png")
-            .add("assets/playerright_1.png")
-            .add("assets/playerright_2.png")
             .add("assets/grass.png")
-            .add("assets/cat.png")
             .add("assets/wall.png")
             .add("assets/exit.png")           
             .add("assets/monsterEggly.png")

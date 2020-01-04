@@ -1,4 +1,4 @@
-import { Level1Scene } from './level1scene.js';
+import { LevelScene } from './levelscene.js';
 import { GameOverScene } from './gameoverscene.js';
 import { LevelCompletedScene } from './levelcompletedscene.js';
 
@@ -9,24 +9,24 @@ export class Scene {
     }
 
     async load() {
-        this.level1Scene = new Level1Scene(this.gameContext);
-        await this.level1Scene.load();
+        this.levelScene = new LevelScene(this.gameContext);
+        await this.levelScene.load(1);
         
         this.gameOverScene = new GameOverScene(this.gameContext);
         this.leveCompletedScene = new LevelCompletedScene(this.gameContext);
 
-        this.level1Scene.addGameOverListener((result) => {
+        this.levelScene.addGameOverListener((result) => {
             this.gameOverScene.visible = true;
-            this.level1Scene.visible = false;
+            this.levelScene.visible = false;
         });       
 
-        this.level1Scene.addLevelCompletedListener(() => {
+        this.levelScene.addLevelCompletedListener(() => {
             this.leveCompletedScene.visible = true;
-            this.level1Scene.visible = false;
+            this.levelScene.visible = false;
         })
     }
 
     gameLoop(delta) {
-       this.level1Scene.gameLoop(delta);
+       this.levelScene.gameLoop(delta);
     }
 }

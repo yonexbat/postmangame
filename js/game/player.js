@@ -11,14 +11,19 @@ export class Player extends GameObject {
         this.sprite = new PIXI.Container();
         this.level.levelContainer.addChild(this.sprite);
 
-        let textures = [
-            PIXI.Loader.shared.resources["assets/playerright_1.png"].texture,
-            PIXI.Loader.shared.resources["assets/playerright_2.png"].texture,
-        ];
+        let textures = [];
+
+        for(let i=1; i<= 6; i++) {
+            
+            const frameImage = `assets/player/frame-${i}_64.png`;
+            const texture = PIXI.Loader.shared.resources[frameImage].texture;
+            textures.push(texture);
+        }
 
         
         this.animatedSprites = new PIXI.AnimatedSprite(textures);
         this.animatedSprites.animationSpeed = 0.167; 
+        this.animatedSprites.x = (64 - 39) / 2;
 
         this.sprite.addChild(this.animatedSprites);
         
@@ -56,11 +61,11 @@ export class Player extends GameObject {
         {
             if(next.vx > 0) {
                 this.animatedSprites.scale.x = 1;
-                this.animatedSprites.x = 0;
+                this.animatedSprites.x = (64 - 39) / 2;
 
             } else if(next.vx < 0) {
                 this.animatedSprites.scale.x = -1;
-                this.animatedSprites.x = 64;
+                this.animatedSprites.x = 64 - (64 - 39) / 2;
             }
             this.animatedSprites.play();
         } else {
