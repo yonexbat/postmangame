@@ -39,11 +39,8 @@ export class Game {
 
         this.screenResized();
 
-        this.app.renderer.plugins.interaction.on( 'pointerdown', function() { console.log('mousedown') } );
+        this.app.renderer.plugins.interaction.on('pointerdown', function() { console.log('mousedown') } );
 
-        this.app.stage.on('pointerdown', (event) =>  {console.log('pointer down')});
-        this.app.stage.on('pointerup', (event) => this.keyboard.pointerUp(event));
-        this.app.stage.on('pointermove', (event) => this.keyboard.pointerMove(event));
 
         //Add the canvas that Pixi automatically created for you to the HTML document
         window.document.body.appendChild(this.app.view);
@@ -55,17 +52,21 @@ export class Game {
     }
 
     loadAssets() {
-        
+
+        // player
         for(let i=1; i<= 6; i++) {
             const frameImage = `assets/player/frame-${i}_64.png`;
-            PIXI.Loader.shared.add(frameImage)
+            PIXI.Loader.shared.add(frameImage);
         }
+
+        // Monster eggli
+        PIXI.Loader.shared.add(`assets/eggli/frame-${1}.png`);
+        PIXI.Loader.shared.add(`assets/eggli/gothit.png`)
 
         PIXI.Loader.shared
             .add("assets/grass.png")
             .add("assets/wall.png")
             .add("assets/exit.png")           
-            .add("assets/monsterEggly.png")
             .add("assets/beep.mp3")
             .load(() => { this.load() });
     }

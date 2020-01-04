@@ -5,7 +5,7 @@ export class MonsterEggly extends GameObject {
     constructor(level, monsterData) {
         super();
         this.level = level;
-        let texture = PIXI.Loader.shared.resources["assets/monsterEggly.png"].texture
+        let texture = PIXI.Loader.shared.resources[`assets/eggli/frame-${1}.png`].texture
         this.sprite = new PIXI.Sprite(texture);
 
 
