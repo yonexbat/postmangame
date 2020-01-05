@@ -4,9 +4,10 @@ export class Exit extends GameObject {
 
     constructor(level, exitData) {
         super();
-
         this.level = level;
+    }
 
+    async load(exitData) {
         let texture = PIXI.Loader.shared.resources["assets/exit.png"].texture
         this.sprite = new PIXI.Sprite(texture);
 

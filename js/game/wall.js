@@ -5,6 +5,14 @@ export class Wall extends GameObject {
     constructor(level, wallinstanceData) {
         super();
         this.level = level;
+       
+    }
+
+    gameLoop(delta) {
+
+    }
+
+    async load(wallinstanceData) {
         this.w = wallinstanceData.w * 64;
         this.h = wallinstanceData.h * 64;
 
@@ -16,11 +24,6 @@ export class Wall extends GameObject {
 
         this.x = wallinstanceData.x * 64;
         this.y = wallinstanceData.y * 64;
-    }
-
-
-    gameLoop(delta) {
-
     }
 
     static registerResources(loadingContext) {        

@@ -2,9 +2,14 @@ import { GameObject } from "./gameobject.js";
 
 export class MonsterEggly extends GameObject {
 
-    constructor(level, monsterData) {
+    constructor(level) {
         super();
         this.level = level;
+      
+    }
+
+    async load(monsterData) {
+        
         let texture = PIXI.Loader.shared.resources[`assets/eggli/frame-${1}.png`].texture
         this.sprite = new PIXI.Sprite(texture);
 
@@ -20,9 +25,6 @@ export class MonsterEggly extends GameObject {
         this.level.levelContainer.addChild(this.sprite);
         this.current = 0;
         this.currentFactor = 1;
-    }
-
-    async load() {
 
         this.vx = 0;
         this.vy = 0;

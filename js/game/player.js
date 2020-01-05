@@ -4,10 +4,12 @@ const mediumSpeed = 5;
 
 export class Player extends GameObject {
 
-    constructor(level, playerData){
+    constructor(level){
         super();
         this.level = level;
+    }  
 
+    async load(playerData) {
         this.sprite = new PIXI.Container();
         this.level.levelContainer.addChild(this.sprite);
 
@@ -19,7 +21,6 @@ export class Player extends GameObject {
             const texture = PIXI.Loader.shared.resources[frameImage].texture;
             textures.push(texture);
         }
-
         
         this.animatedSprites = new PIXI.AnimatedSprite(textures);
         this.animatedSprites.animationSpeed = 0.167; 
@@ -37,7 +38,7 @@ export class Player extends GameObject {
 
         this.speed = mediumSpeed;
         this.level.levelContainer.addChild(this.sprite);
-    }  
+    }
 
     eatenByMonster() {
         this.x = 0;
