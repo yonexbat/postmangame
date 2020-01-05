@@ -1,5 +1,11 @@
 import { Keyboard } from "./keyboard.js";
 import { Scene } from "./scene.js";
+import { MonsterBirdi } from "./monsterbirdi.js";
+import { Player } from "./player.js";
+import { MonsterEggly } from "./monstereggly.js";
+import {Floor} from "./floor.js";
+import { Wall } from "./wall.js";
+import { Exit } from "./exit.js";
 
 export class Game {
 
@@ -53,21 +59,25 @@ export class Game {
 
     loadAssets() {
 
-        // player
-        for(let i=1; i<= 6; i++) {
-            const frameImage = `assets/player/frame-${i}_64.png`;
-            PIXI.Loader.shared.add(frameImage);
-        }
+        const objectClasses = [
+            Player,
+            MonsterBirdi,
+            MonsterEggly,
+            Floor,
+            Wall,
+            Exit,
+        ];
 
-        // Monster eggli
-        PIXI.Loader.shared.add(`assets/eggli/frame-${1}.png`);
-        PIXI.Loader.shared.add(`assets/eggli/gothit.png`)
+        const loadingContext = {
+            loader: PIXI.Loader.shared
+        };
 
-        PIXI.Loader.shared
-            .add("assets/grass.png")
-            .add("assets/wall.png")
-            .add("assets/exit.png")           
-            .add("assets/beep.mp3")
+        objectClasses.forEach(clazz => {
+            clazz.registerResources(loadingContext);
+        });
+       
+
+        PIXI.Loader.shared                       
             .load(() => { this.load() });
     }
 

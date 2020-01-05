@@ -1,6 +1,7 @@
 import { GameObject } from "./gameobject.js";
 
-export class MonsterEggly extends GameObject {
+export class MonsterBirdi extends GameObject {
+
 
     constructor(level, monsterData) {
         super();
@@ -21,6 +22,12 @@ export class MonsterEggly extends GameObject {
         this.current = 0;
         this.currentFactor = 1;
     }
+
+    
+    static registerResources(loadingContext) {
+            
+    }
+
 
     async load() {
 
@@ -77,10 +84,5 @@ export class MonsterEggly extends GameObject {
             vx: player.vx,
             vy: player.vy,
         };
-    }
-
-    static registerResources(loadingContext) {            
-        loadingContext.loader.add(`assets/eggli/frame-${1}.png`);
-        loadingContext.loader.add(`assets/eggli/gothit.png`);
     }
 }

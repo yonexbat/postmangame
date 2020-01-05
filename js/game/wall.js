@@ -23,4 +23,8 @@ export class Wall extends GameObject {
 
     }
 
+    static registerResources(loadingContext) {        
+        loadingContext.loader.add("assets/wall.png");
+    }
+
 }

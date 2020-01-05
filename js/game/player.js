@@ -88,4 +88,11 @@ export class Player extends GameObject {
           
     }
 
+    static registerResources(loadingContext) {        
+        for (let i=1; i<= 6; i++) {
+            const frameImage = `assets/player/frame-${i}_64.png`;
+            loadingContext.loader.add(frameImage);
+        } 
+        loadingContext.loader.add("assets/beep.mp3");
+    }
 }

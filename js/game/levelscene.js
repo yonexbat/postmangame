@@ -30,7 +30,7 @@ export class LevelScene {
         let exit = new Exit(this, levelData.exit);
         this.children.push(exit);
 
-        await this.loadMonsters(levelData.monsters);
+        await this.loadMonstersEggli(levelData.monsterseggli);
         
         this.player = new Player(this, levelData.player);
         
@@ -51,7 +51,7 @@ export class LevelScene {
         }
     }
 
-    async loadMonsters(monsterData) {
+    async loadMonstersEggli(monsterData) {
         for(let monsterinstanceData of monsterData) {
             let monster = new MonsterEggly(this, monsterinstanceData);
             await monster.load();
