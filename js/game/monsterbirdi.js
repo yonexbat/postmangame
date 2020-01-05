@@ -3,74 +3,88 @@ import { GameObject } from "./gameobject.js";
 export class MonsterBirdi extends GameObject {
 
 
-    constructor(level, monsterData) {
+    constructor(level) {
         super();
         this.level = level;
-        let texture = PIXI.Loader.shared.resources[`assets/eggli/frame-${1}.png`].texture
-        this.sprite = new PIXI.Sprite(texture);
+    }
+
+
+    static registerResources(loadingContext) {
+        for (let i = 1; i <= 8; i++) {
+            const frameImage = `assets/birdi/frame-${i}.png`;
+            loadingContext.loader.add(frameImage);
+        }
+    }
+
+
+    async load(monsterData) {
+
+        this.sprite = new PIXI.Container();
+        this.level.levelContainer.addChild(this.sprite);
+
+        let textures = [];
+
+        for (let i = 1; i <= 8; i++) {
+
+            const frameImage = `assets/birdi/frame-${i}.png`;
+            const texture = this.level.gameContext.loader.resources[frameImage].texture;
+            textures.push(texture);
+        }
+
+        this.animatedSprites = new PIXI.AnimatedSprite(textures);
+        this.animatedSprites.animationSpeed = 0.167;
+        this.animatedSprites.x = (64 - 64) / 2;
+
+        this.sprite.addChild(this.animatedSprites);
+        this.animatedSprites.play();
 
 
         this.x = monsterData.x * 64;
         this.y = monsterData.y * 64;
 
-        this.dir = monsterData.dir;
-        this.dist = monsterData.dist;
 
         this.speed = monsterData.speed;
+        this.triggerdist = monsterData.triggerdist*64;
 
         this.level.levelContainer.addChild(this.sprite);
         this.current = 0;
         this.currentFactor = 1;
-    }
 
-    
-    static registerResources(loadingContext) {
-            
-    }
-
-
-    async load() {
-
-        this.vx = 0;
-        this.vy = 0;
-
-        switch (this.dir) {
-            case "north":
-                this.vx = 0;
-                this.vy = -1;
-                break;
-            case "south":
-                this.vx = 0;
-                this.vy = 1;
-                break;
-            case "west":
-                this.vx = -1;
-                this.vy = 0;
-                break;
-            case "east": 
-                this.vx = 1;
-                this.vy = 0;
-                break;
-        }
-        this.vx *= this.speed;
-        this.vy *= this.speed;
-        
-        this.iterations = this.dist*64 / this.speed;
+        this.wokenup = false;
     }
 
     gameLoop(delta) {
 
-        this.x = this.x + this.vx * this.currentFactor;
-        this.y = this.y + this.vy * this.currentFactor;
+        const deltax = this.level.player.x - this.x;
+        const deltay = this.level.player.y - this.y;
+        const mag = Math.sqrt(deltax * deltax + deltay * deltay);
 
-        if(this.current >= this.iterations) {
-            this.currentFactor = -1;
-        }   
-        if(this.current <= 0) {
-            this.currentFactor = 1;
+        if (mag < this.triggerdist) {
+            this.wokenup = true;
         }
-        this.current += this.currentFactor;
-        
+
+        if (this.wokenup) {
+            
+            const dirx = Math.round((deltax / mag) * this.speed);
+            const diry = Math.round((deltay / mag) * this.speed);
+
+            this.x += dirx;
+            this.y += diry;
+
+            if(dirx > 0) {
+                this.animatedSprites.scale.x = 1;
+                this.animatedSprites.x = (64 - 64) / 2;
+
+            } else if(dirx < 0) {
+                this.animatedSprites.scale.x = -1;
+                this.animatedSprites.x = 64 - (64 - 64) / 2;
+            }
+
+
+
+        }
+
+
         if (this.isPlayerOnIt()) {
             this.level.triggerGameOver();
         }

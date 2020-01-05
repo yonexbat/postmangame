@@ -86,7 +86,8 @@ export class Game {
         const gameContext = {
             application: this.app,
             keyboard: this.keyboard,  
-            restart: this.restartGame,          
+            restart: this.restartGame, 
+            loader: PIXI.Loader.shared,         
         };     
 
         this.scene = new Scene(gameContext);        

@@ -3,6 +3,7 @@ import { Wall } from './wall.js';
 import { Exit } from './exit.js';
 import { MonsterEggly } from './monstereggly.js';
 import { Floor } from './floor.js';
+import { MonsterBirdi } from './monsterbirdi.js';
 
 export class LevelScene {
 
@@ -33,6 +34,7 @@ export class LevelScene {
         this.children.push(exit);
 
         await this.loadMonstersEggli(levelData.monsterseggli);
+        await this.loadMonsterBirdy(levelData.monstersbirdi);
         
         this.player = new Player(this);
         await this.player.load(levelData.player);
@@ -57,6 +59,14 @@ export class LevelScene {
     async loadMonstersEggli(monsterData) {
         for(let monsterinstanceData of monsterData) {
             let monster = new MonsterEggly(this);
+            await monster.load(monsterinstanceData);
+            this.children.push(monster);
+        }
+    }
+
+    async loadMonsterBirdy(monsterData) {
+        for(let monsterinstanceData of monsterData) {
+            let monster = new MonsterBirdi(this);
             await monster.load(monsterinstanceData);
             this.children.push(monster);
         }

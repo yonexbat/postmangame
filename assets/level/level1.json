@@ -24,6 +24,15 @@
             "speed": 2
         }
     ],
+    "monstersbirdi": [
+        {
+            "x": 18,
+            "y": 1,
+            "triggerdist": 3,
+            "speed": 2
+        }
+    ],
+
     "walls": [
         {
             "x": 4,

@@ -18,7 +18,7 @@ export class Player extends GameObject {
         for(let i=1; i<= 6; i++) {
             
             const frameImage = `assets/player/frame-${i}_64.png`;
-            const texture = PIXI.Loader.shared.resources[frameImage].texture;
+            const texture = this.level.gameContext.loader.resources[frameImage].texture;
             textures.push(texture);
         }
         
