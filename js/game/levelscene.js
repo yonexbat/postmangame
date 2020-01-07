@@ -21,13 +21,15 @@ export class LevelScene {
              
         this.levelContainer = new PIXI.Container();
         this.gameContext.application.stage.addChild(this.levelContainer);
-
-        let floor = new Floor(this);
-        await floor.load();
-
         
         let levelData = await this.loadLevel(level);
+        await this.buildLevel(levelData);
         await this.loadWalls(levelData.walls);
+    }
+
+    async buildLevel(levelData) {
+        let floor = new Floor(this);
+        await floor.load();
 
         let exit = new Exit(this);
         await exit.load(levelData.exit);
@@ -38,7 +40,6 @@ export class LevelScene {
         
         this.player = new Player(this);
         await this.player.load(levelData.player);
-        
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
 

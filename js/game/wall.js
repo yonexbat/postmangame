@@ -16,7 +16,7 @@ export class Wall extends GameObject {
         this.w = wallinstanceData.w * 64;
         this.h = wallinstanceData.h * 64;
 
-        let texture = PIXI.Loader.shared.resources["assets/wall.png"].texture
+        let texture = this.level.gameContext.loader.resources["assets/wall.png"].texture
         this.sprite = new PIXI.TilingSprite(texture, this.w, this.h);
         this.level.levelContainer.addChild(this.sprite);
 

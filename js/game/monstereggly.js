@@ -10,7 +10,7 @@ export class MonsterEggly extends GameObject {
 
     async load(monsterData) {
         
-        let texture = PIXI.Loader.shared.resources[`assets/eggli/frame-${1}.png`].texture
+        let texture = this.level.gameContext.loader.resources[`assets/eggli/frame-${1}.png`].texture
         this.sprite = new PIXI.Sprite(texture);
 
 

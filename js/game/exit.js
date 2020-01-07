@@ -8,7 +8,7 @@ export class Exit extends GameObject {
     }
 
     async load(exitData) {
-        let texture = PIXI.Loader.shared.resources["assets/exit.png"].texture
+        let texture = this.level.gameContext.loader.resources["assets/exit.png"].texture
         this.sprite = new PIXI.Sprite(texture);
 
         this.x = exitData.x * 64;
