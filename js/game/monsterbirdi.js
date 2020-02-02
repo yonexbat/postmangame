@@ -41,6 +41,7 @@ export class MonsterBirdi extends GameObject {
 
         this.x = monsterData.x * 64;
         this.y = monsterData.y * 64;
+        this.zIndex = 1; 
 
 
         this.speed = monsterData.speed;

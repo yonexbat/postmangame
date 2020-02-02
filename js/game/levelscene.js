@@ -20,6 +20,7 @@ export class LevelScene {
     async load(level) {
              
         this.levelContainer = new PIXI.Container();
+        this.levelContainer.sortableChildren = true;
         this.gameContext.application.stage.addChild(this.levelContainer);
         
         let levelData = await this.loadLevel(level);

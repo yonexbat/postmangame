@@ -21,6 +21,13 @@ export class GameObject {
         this.sprite.y = val;
     }
 
+    get zIndex() {
+        return this.sprite.zIndex;
+    }
+
+    set zIndex(val) {
+        this.sprite.zIndex = val;
+    }
 
     isPlayerOnIt() {
         
