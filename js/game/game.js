@@ -6,6 +6,7 @@ import { MonsterEggly } from "./monstereggly.js";
 import {Floor} from "./floor.js";
 import { Wall } from "./wall.js";
 import { Exit } from "./exit.js";
+import { MonsterCat } from "./monstercat.js";
 
 export class Game {
 
@@ -63,6 +64,7 @@ export class Game {
             Player,
             MonsterBirdi,
             MonsterEggly,
+            MonsterCat,
             Floor,
             Wall,
             Exit,
@@ -103,5 +105,4 @@ export class Game {
     restartGame() {
         location.reload();
     }
-
 }

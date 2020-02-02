@@ -4,6 +4,7 @@ import { Exit } from './exit.js';
 import { MonsterEggly } from './monstereggly.js';
 import { Floor } from './floor.js';
 import { MonsterBirdi } from './monsterbirdi.js';
+import { MonsterCat } from './monstercat.js';
 
 export class LevelScene {
 
@@ -38,6 +39,7 @@ export class LevelScene {
 
         await this.loadMonstersEggli(levelData.monsterseggli);
         await this.loadMonsterBirdy(levelData.monstersbirdi);
+        await this.loadMonsterCat(levelData.monstercat);
         
         this.player = new Player(this);
         await this.player.load(levelData.player);
@@ -69,6 +71,14 @@ export class LevelScene {
     async loadMonsterBirdy(monsterData) {
         for(let monsterinstanceData of monsterData) {
             let monster = new MonsterBirdi(this);
+            await monster.load(monsterinstanceData);
+            this.children.push(monster);
+        }
+    }
+
+    async loadMonsterCat(monsterData) {
+        for(let monsterinstanceData of monsterData) {
+            let monster = new MonsterCat(this);
             await monster.load(monsterinstanceData);
             this.children.push(monster);
         }
@@ -145,6 +155,17 @@ export class LevelScene {
             vy: playerInfo.vy,
         };
     }
+
+
+    getchildrenOfType(typeName) {
+        return this.children.filter(x => x.objectType === typeName);
+    }
+
+    removeChild(obj) {
+        const index = this.children.indexOf(obj);
+        this.children.splice(index, 1);
+    }
+
 
     set visible(val) {
         this.levelContainer.visible = val;

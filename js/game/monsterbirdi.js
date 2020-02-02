@@ -41,11 +41,11 @@ export class MonsterBirdi extends GameObject {
 
         this.x = monsterData.x * 64;
         this.y = monsterData.y * 64;
-        this.zIndex = 1; 
+        this.zIndex = 1;
 
 
         this.speed = monsterData.speed;
-        this.triggerdist = monsterData.triggerdist*64;
+        this.triggerdist = monsterData.triggerdist * 64;
 
         this.level.levelContainer.addChild(this.sprite);
         this.current = 0;
@@ -65,30 +65,39 @@ export class MonsterBirdi extends GameObject {
         }
 
         if (this.wokenup) {
-            
+
             const dirx = Math.round((deltax / mag) * this.speed);
             const diry = Math.round((deltay / mag) * this.speed);
 
             this.x += dirx;
             this.y += diry;
 
-            if(dirx > 0) {
+            if (dirx > 0) {
                 this.animatedSprites.scale.x = 1;
                 this.animatedSprites.x = (64 - 64) / 2;
 
-            } else if(dirx < 0) {
+            } else if (dirx < 0) {
                 this.animatedSprites.scale.x = -1;
                 this.animatedSprites.x = 64 - (64 - 64) / 2;
             }
-
-
-
         }
 
 
         if (this.isPlayerOnIt()) {
             this.level.triggerGameOver();
         }
+
+        //If bird is on cat, cat will eat bird.
+        const cats = this.level.getchildrenOfType('Cat');
+        for (const cat of cats) {
+            if (this.doesIntersect(cat, this)) {
+                this.birdDies();
+            }
+        };
+    }
+
+    birdDies() {
+        this.removeSelf();
     }
 
 

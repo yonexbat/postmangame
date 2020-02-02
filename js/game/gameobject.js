@@ -3,6 +3,7 @@ export class GameObject {
     constructor() {
         this.h = 64;
         this.w = 64;
+        this.objectType = 'Generic'; 
     }
 
     get x() {
@@ -106,5 +107,30 @@ export class GameObject {
 
     async load() {
 
+    }
+
+    doesIntersect(gameObject1, gameObject2) {
+
+        const x1 = gameObject1.x;
+        const y1 = gameObject1.y;
+        const h1 = gameObject1.h;
+        const w1 = gameObject1.w;
+
+        const x2 = gameObject2.x;
+        const y2 = gameObject2.y;
+        const h2 = gameObject2.h;
+        const w2 = gameObject2.w;
+
+        if (x1 + (w1 - 1) >= x2 && x1 <= x2 + (w2 - 1) &&
+            y1 + (h1 - 1) >= y2 && y1 <= y2 + (h2 - 1)) {
+            return true;
+        }
+
+        return false;
+    }
+
+    removeSelf() {
+        this.level.removeChild(this);
+        this.sprite.visible = false;
     }
 }
