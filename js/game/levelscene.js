@@ -1,10 +1,10 @@
-import { Player } from './player.js';
-import { Wall } from './wall.js';
-import { Exit } from './exit.js';
-import { MonsterEggly } from './monstereggly.js';
-import { Floor } from './floor.js';
-import { MonsterBirdi } from './monsterbirdi.js';
-import { MonsterCat } from './monstercat.js';
+import { Player } from './levelelements/player.js';
+import { Wall } from './levelelements/wall.js';
+import { Exit } from './levelelements/exit.js';
+import { MonsterEggly } from './levelelements/monstereggly.js';
+import { Floor } from './levelelements/floor.js';
+import { MonsterBirdi } from './levelelements/monsterbirdi.js';
+import { MonsterCat } from './levelelements/monstercat.js';
 
 export class LevelScene {
 
