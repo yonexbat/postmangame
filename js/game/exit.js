@@ -2,12 +2,14 @@ import { GameObject } from "./gameobject.js";
 
 export class Exit extends GameObject {
 
-    constructor(level, exitData) {
+    constructor(level) {
         super();
         this.level = level;
+        this.objectType = 'Exit';
     }
 
     async load(exitData) {
+        
         let texture = this.level.gameContext.loader.resources["assets/exit.png"].texture
         this.sprite = new PIXI.Sprite(texture);
 

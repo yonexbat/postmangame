@@ -6,6 +6,7 @@ export class MonsterBirdi extends GameObject {
     constructor(level) {
         super();
         this.level = level;
+        this.objectType = 'Birdi';
     }
 
 

@@ -4,6 +4,7 @@ export class MonsterCat extends GameObject {
     constructor(level) {
         super();
         this.level = level;
+        this.objectType = 'Cat';
     }
 
     static registerResources(loadingContext) {
@@ -17,8 +18,7 @@ export class MonsterCat extends GameObject {
 
         this.x = monsterData.x * 64;
         this.y = monsterData.y * 64;
-        this.objectType = 'Cat';
-        
+                        
         this.level.levelContainer.addChild(this.sprite); 
     }
 

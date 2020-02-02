@@ -5,7 +5,7 @@ export class Wall extends GameObject {
     constructor(level, wallinstanceData) {
         super();
         this.level = level;
-       
+        this.objectType = 'Floor';
     }
 
     gameLoop(delta) {

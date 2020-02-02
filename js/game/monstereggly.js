@@ -5,7 +5,7 @@ export class MonsterEggly extends GameObject {
     constructor(level) {
         super();
         this.level = level;
-      
+        this.objectType = 'Eggly';
     }
 
     async load(monsterData) {

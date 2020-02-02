@@ -33,16 +33,7 @@ export class GameObject {
     isPlayerOnIt() {
         
         if (this.level && this.level.player) {
-
-            const x = this.level.player.x;
-            const y = this.level.player.y;
-            const h = this.level.player.h;
-            const w = this.level.player.w;
-
-            if (x + (w - 1) >= this.x && x <= this.x + (this.w - 1) &&
-                y + (h - 1) >= this.y && y <= this.y + (this.h - 1)) {
-                return true;
-            }
+            return this.doesIntersect(this.level.player, this);
         }
         return false;
     }

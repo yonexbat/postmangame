@@ -7,6 +7,7 @@ export class Player extends GameObject {
     constructor(level){
         super();
         this.level = level;
+        this.objectType = 'Player';
     }  
 
     async load(playerData) {

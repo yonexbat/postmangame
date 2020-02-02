@@ -5,6 +5,7 @@ export class Floor extends GameObject {
     constructor(level) {
         super();
         this.level = level;
+        this.objectType = 'Floor';
     }
 
     gameLoop(delta) {
