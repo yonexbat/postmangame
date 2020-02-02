@@ -1,8 +1,6 @@
 import { GameObject } from "./gameobject.js";
 
 const mediumSpeed = 5;
-const wallHitSoundFile = 'assets/beep.mp3';
-
 const numImages = 6;
 const resourceTemplate = 'assets/player/frame-{iterator}_64.png';
 
@@ -14,8 +12,7 @@ export class Player extends GameObject {
     }  
 
     static registerResources(loadingContext) {               
-        loadingContext.addFromTemplate(resourceTemplate, numImages);       
-        loadingContext.add(wallHitSoundFile);
+        loadingContext.addFromTemplate(resourceTemplate, numImages);
     }
 
     async load(playerData) {
@@ -80,8 +77,7 @@ export class Player extends GameObject {
             if(next.vy === 0) {
                 this.vy = 0;
             }
-            let sound =  this.getResource(wallHitSoundFile);
-            sound.sound.play();
+                        
         }
           
     }

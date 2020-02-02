@@ -4,23 +4,79 @@
         "y": 2
     },
     "exit": {
-        "x": 12,
-        "y": 1
+        "x": 58,
+        "y": 2
     },
     "monsterseggli": [
         {
-            "x": 6,
-            "y": 1,
-            "dir": "south",
-            "dist": 3,
+            "x": 2,
+            "y": 10,
+            "dir": "east",
+            "dist": 4,
             "speed": 3
         },
         {
-            "x": 0,
-            "y": 8,
+            "x": 8,
+            "y": 6,
             "dir": "east",
-            "dist": 3,
-            "speed": 2
+            "dist": 10,
+            "speed": 3
+        },
+        {
+            "x": 8,
+            "y": 10,
+            "dir": "east",
+            "dist": 10,
+            "speed": 4
+        },
+        {
+            "x": 17,
+            "y": 2,
+            "dir": "south",
+            "dist": 10,
+            "speed": 4
+        },
+        {
+            "x": 64,
+            "y": 40,
+            "dir": "east",
+            "dist": 7,
+            "speed": 3
+        },        
+        {
+            "x": 58,
+            "y": 51,
+            "dir": "east",
+            "dist": 9,
+            "speed": 3
+        },        
+        {
+            "x": 13,
+            "y": 49,
+            "dir": "north",
+            "dist": 5,
+            "speed": 5
+        },        
+        {
+            "x": 18,
+            "y": 49,
+            "dir": "north",
+            "dist": 5,
+            "speed": 5
+        },        
+        {
+            "x": 23,
+            "y": 49,
+            "dir": "north",
+            "dist": 5,
+            "speed": 3
+        },        
+        {
+            "x": 24,
+            "y": 49,
+            "dir": "north",
+            "dist": 5,
+            "speed": 5
         }
     ],
     "monstersbirdi": [
@@ -29,12 +85,42 @@
             "y": 1,
             "triggerdist": 3,
             "speed": 2
+        },
+        {
+            "x": 43,
+            "y": 30,
+            "triggerdist": 2,
+            "speed": 2
+        },
+        {
+            "x": 43,
+            "y": 3,
+            "triggerdist": 2,
+            "speed": 2
+        },
+        {
+            "x": 60,
+            "y": 17,
+            "triggerdist": 4,
+            "speed": 2
+        },
+        {
+            "x": 66,
+            "y": 13,
+            "triggerdist": 4,
+            "speed": 2
+        },
+        {
+            "x": 64,
+            "y": 24,
+            "triggerdist": 3,
+            "speed": 2
         }
     ],
     "monstercat": [
         {
-            "x": 18,
-            "y": 3
+            "x": 31,
+            "y": 18
         }
     ],
     "walls": [
@@ -173,7 +259,7 @@
         {
             "x": 19,
             "y": 1,
-            "h": 3,
+            "h": 2,
             "w": 1
         },
         {
