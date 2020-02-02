@@ -3,9 +3,8 @@ import { GameObject } from "./gameobject.js";
 export class MonsterEggly extends GameObject {
 
     constructor(level) {
-        super();
+        super('Eggly');
         this.level = level;
-        this.objectType = 'Eggly';
     }
 
     async load(monsterData) {

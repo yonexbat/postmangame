@@ -1,9 +1,13 @@
 export class GameObject {
 
-    constructor() {
+    constructor(objectTypeAsString) {
+        if(objectTypeAsString == undefined) {
+            throw new Error(`parameter objectTypeAsString must not ne undefined!`);
+        }
+
         this.h = 64;
         this.w = 64;
-        this.objectType = 'Generic'; 
+        this.objectType = objectTypeAsString;         
     }
 
     get x() {

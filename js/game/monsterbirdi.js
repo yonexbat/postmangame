@@ -4,9 +4,8 @@ export class MonsterBirdi extends GameObject {
 
 
     constructor(level) {
-        super();
+        super('Birdi');
         this.level = level;
-        this.objectType = 'Birdi';
     }
 
 
@@ -92,12 +91,13 @@ export class MonsterBirdi extends GameObject {
         const cats = this.level.getchildrenOfType('Cat');
         for (const cat of cats) {
             if (this.doesIntersect(cat, this)) {
-                this.birdDies();
+                this.birdDies(cat);
             }
         };
     }
 
-    birdDies() {
+    birdDies(cat) {
+        cat.meow();
         this.removeSelf();
     }
 

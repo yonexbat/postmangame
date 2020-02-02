@@ -3,9 +3,8 @@ import { GameObject } from './gameobject.js';
 export class Wall extends GameObject {
 
     constructor(level, wallinstanceData) {
-        super();
+        super('Wall');
         this.level = level;
-        this.objectType = 'Floor';
     }
 
     gameLoop(delta) {

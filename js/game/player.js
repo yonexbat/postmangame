@@ -5,9 +5,8 @@ const mediumSpeed = 5;
 export class Player extends GameObject {
 
     constructor(level){
-        super();
+        super('Player');
         this.level = level;
-        this.objectType = 'Player';
     }  
 
     async load(playerData) {

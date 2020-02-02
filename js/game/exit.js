@@ -3,9 +3,8 @@ import { GameObject } from "./gameobject.js";
 export class Exit extends GameObject {
 
     constructor(level) {
-        super();
+        super('Exit');
         this.level = level;
-        this.objectType = 'Exit';
     }
 
     async load(exitData) {
