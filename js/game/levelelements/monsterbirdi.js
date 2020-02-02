@@ -1,6 +1,8 @@
 import { GameObject } from "./gameobject.js";
 import { TileW } from "./gameobject.js";
-import { TileH } from "./gameobject.js";
+
+const resourceTemplate = 'assets/birdi/frame-{iterator}.png';
+const numImages = 8;
 
 export class MonsterBirdi extends GameObject {
 
@@ -9,45 +11,27 @@ export class MonsterBirdi extends GameObject {
         this.level = level;
     }
 
-
     static registerResources(loadingContext) {
-        for (let i = 1; i <= 8; i++) {
-            const frameImage = `assets/birdi/frame-${i}.png`;
-            loadingContext.add(frameImage);
-        }
+        loadingContext.addFromTemplate(resourceTemplate, numImages);       
     }
-
 
     async load(monsterData) {
 
-        this.sprite = new PIXI.Container();
-        this.level.levelContainer.addChild(this.sprite);
+        const data = {
+            numImages: numImages,
+            template: resourceTemplate,
+            animationSpeed:  0.167,  
+            x: monsterData.x,
+            y: monsterData.y, 
+            animatedW: TileW,
+        };
 
-        let textures = [];
-
-        for (let i = 1; i <= 8; i++) {
-            const frameImage = `assets/birdi/frame-${i}.png`;          
-            const texture = this.getTexture(frameImage);
-            textures.push(texture);
-        }
-
-        this.animatedSprites = new PIXI.AnimatedSprite(textures);
-        this.animatedSprites.animationSpeed = 0.167;
-        this.animatedSprites.x = (TileW - TileW) / 2;
-
-        this.sprite.addChild(this.animatedSprites);
-        this.animatedSprites.play();
-
-
-        this.x = monsterData.x * TileW;
-        this.y = monsterData.y * TileH;
+        this.loadAnimatedSprite(data);
         this.zIndex = 1;
-
 
         this.speed = monsterData.speed;
         this.triggerdist = monsterData.triggerdist * TileW;
 
-        this.addPixieSprite();
         this.current = 0;
         this.currentFactor = 1;
 
@@ -100,8 +84,6 @@ export class MonsterBirdi extends GameObject {
         cat.meow();
         this.removeSelf();
     }
-
-
 
     canMoveTo(player) {
         return {

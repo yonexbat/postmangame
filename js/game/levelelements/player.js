@@ -3,6 +3,9 @@ import { GameObject } from "./gameobject.js";
 const mediumSpeed = 5;
 const wallHitSoundFile = 'assets/beep.mp3';
 
+const numImages = 6;
+const resourceTemplate = 'assets/player/frame-{iterator}_64.png';
+
 export class Player extends GameObject {
 
     constructor(level){
@@ -10,35 +13,28 @@ export class Player extends GameObject {
         this.level = level;
     }  
 
+    static registerResources(loadingContext) {               
+        loadingContext.addFromTemplate(resourceTemplate, numImages);       
+        loadingContext.add(wallHitSoundFile);
+    }
+
     async load(playerData) {
-        this.sprite = new PIXI.Container();
-        this.level.levelContainer.addChild(this.sprite);
 
-        let textures = [];
-
-        for(let i=1; i<= 6; i++) {
-            
-            const frameImage = `assets/player/frame-${i}_64.png`;
-            const texture = this.getTexture(frameImage);
-            textures.push(texture);
-        }
-        
-        this.animatedSprites = new PIXI.AnimatedSprite(textures);
-        this.animatedSprites.animationSpeed = 0.167; 
-        this.animatedSprites.x = (64 - 39) / 2;
-
-        this.sprite.addChild(this.animatedSprites);
+        const data = {
+            numImages: numImages,
+            template: resourceTemplate,
+            animationSpeed:  0.167,  
+            x: playerData.x,
+            y: playerData.y, 
+            animatedW: 39,
+        };
+        this.loadAnimatedSprite(data);
         
         this.vx = 0;
         this.vy = 0;
-        this.h = 64;
-        this.w = 64;
-        
-        this.x = playerData.x * 64;
-        this.y = playerData.y * 64;
-
+      
         this.speed = mediumSpeed;
-        this.addPixieSprite();
+
     }
 
     eatenByMonster() {
@@ -88,13 +84,5 @@ export class Player extends GameObject {
             sound.sound.play();
         }
           
-    }
-
-    static registerResources(loadingContext) {        
-        for (let i=1; i<= 6; i++) {
-            const frameImage = `assets/player/frame-${i}_64.png`;
-            loadingContext.add(frameImage);
-        } 
-        loadingContext.add(wallHitSoundFile);
     }
 }

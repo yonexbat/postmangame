@@ -157,7 +157,34 @@ export class GameObject {
         let texture = this.getTexture(resourcename);
         this.sprite = new PIXI.Sprite(texture);
         this.x = x * TileW;
-        this.y = y * TileH;        
+        this.y = y * TileH;       
+        this.h = TileH,
+        this.w = TileW; 
         this.addPixieSprite(); 
+    }
+
+    loadAnimatedSprite(data) {        
+
+        this.sprite = new PIXI.Container();
+        this.level.levelContainer.addChild(this.sprite);
+
+        let textures = [];
+        for(let i = 1; i <= data.numImages; i++) {
+            const frameImage = data.template.replace('{iterator}', `${i}`);
+            const texture = this.getTexture(frameImage);
+            textures.push(texture);
+        }
+
+        this.animatedSprites = new PIXI.AnimatedSprite(textures);
+        this.animatedSprites.animationSpeed = data.animationSpeed;
+        this.animatedSprites.x = (TileW - data.animatedW) / 2;
+
+        this.sprite.addChild(this.animatedSprites);
+        this.animatedSprites.play();
+
+        this.x = data.x * TileW;
+        this.y = data.y * TileH;
+        this.h = TileH,
+        this.w = TileW; 
     }
 }
