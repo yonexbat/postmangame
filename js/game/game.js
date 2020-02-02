@@ -7,6 +7,7 @@ import {Floor} from "./levelelements/floor.js";
 import { Wall } from "./levelelements/wall.js";
 import { Exit } from "./levelelements/exit.js";
 import { MonsterCat } from "./levelelements/monstercat.js";
+import { LoadingContext } from "./loadingcontext.js";
 
 export class Game {
 
@@ -70,9 +71,7 @@ export class Game {
             Exit,
         ];
 
-        const loadingContext = {
-            loader: PIXI.Loader.shared
-        };
+        const loadingContext = new LoadingContext();
 
         objectClasses.forEach(clazz => {
             clazz.registerResources(loadingContext);

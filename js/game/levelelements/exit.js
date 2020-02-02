@@ -1,5 +1,7 @@
 import { GameObject } from "./gameobject.js";
 
+const image = 'assets/exit.png';
+
 export class Exit extends GameObject {
 
     constructor(level) {
@@ -8,14 +10,7 @@ export class Exit extends GameObject {
     }
 
     async load(exitData) {
-        
-        let texture = this.level.gameContext.loader.resources["assets/exit.png"].texture
-        this.sprite = new PIXI.Sprite(texture);
-
-        this.x = exitData.x * 64;
-        this.y = exitData.y * 64;
-        
-        this.level.levelContainer.addChild(this.sprite); 
+        this.loadSimpleSprite(image, exitData.x, exitData.y);
     }
 
     gameLoop(delta) {
@@ -33,7 +28,7 @@ export class Exit extends GameObject {
     }
 
     static registerResources(loadingContext) {        
-        loadingContext.loader.add("assets/exit.png");
+        loadingContext.add(image);
     }
 
 }

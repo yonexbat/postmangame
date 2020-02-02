@@ -1,5 +1,7 @@
 import { GameObject } from './gameobject.js';
 
+const imagefile = 'assets/wall.png';
+
 export class Wall extends GameObject {
 
     constructor(level, wallinstanceData) {
@@ -15,18 +17,16 @@ export class Wall extends GameObject {
         this.w = wallinstanceData.w * 64;
         this.h = wallinstanceData.h * 64;
 
-        let texture = this.level.gameContext.loader.resources["assets/wall.png"].texture
+        let texture = this.getTexture(imagefile);
         this.sprite = new PIXI.TilingSprite(texture, this.w, this.h);
-        this.level.levelContainer.addChild(this.sprite);
-
-
+        this.addPixieSprite();
 
         this.x = wallinstanceData.x * 64;
         this.y = wallinstanceData.y * 64;
     }
 
     static registerResources(loadingContext) {        
-        loadingContext.loader.add("assets/wall.png");
+        loadingContext.add(imagefile);
     }
 
 }

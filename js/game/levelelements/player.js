@@ -1,6 +1,7 @@
 import { GameObject } from "./gameobject.js";
 
 const mediumSpeed = 5;
+const wallHitSoundFile = 'assets/beep.mp3';
 
 export class Player extends GameObject {
 
@@ -18,7 +19,7 @@ export class Player extends GameObject {
         for(let i=1; i<= 6; i++) {
             
             const frameImage = `assets/player/frame-${i}_64.png`;
-            const texture = this.level.gameContext.loader.resources[frameImage].texture;
+            const texture = this.getTexture(frameImage);
             textures.push(texture);
         }
         
@@ -37,7 +38,7 @@ export class Player extends GameObject {
         this.y = playerData.y * 64;
 
         this.speed = mediumSpeed;
-        this.level.levelContainer.addChild(this.sprite);
+        this.addPixieSprite();
     }
 
     eatenByMonster() {
@@ -83,7 +84,7 @@ export class Player extends GameObject {
             if(next.vy === 0) {
                 this.vy = 0;
             }
-            let sound =  PIXI.Loader.shared.resources["assets/beep.mp3"]; 
+            let sound =  this.getResource(wallHitSoundFile);
             sound.sound.play();
         }
           
@@ -92,8 +93,8 @@ export class Player extends GameObject {
     static registerResources(loadingContext) {        
         for (let i=1; i<= 6; i++) {
             const frameImage = `assets/player/frame-${i}_64.png`;
-            loadingContext.loader.add(frameImage);
+            loadingContext.add(frameImage);
         } 
-        loadingContext.loader.add("assets/beep.mp3");
+        loadingContext.add(wallHitSoundFile);
     }
 }

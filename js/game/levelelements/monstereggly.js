@@ -1,5 +1,8 @@
 import { GameObject } from "./gameobject.js";
 
+const image = `assets/eggli/frame-${1}.png`;
+const imagehit = `assets/eggli/gothit.png`;
+
 export class MonsterEggly extends GameObject {
 
     constructor(level) {
@@ -9,19 +12,13 @@ export class MonsterEggly extends GameObject {
 
     async load(monsterData) {
         
-        let texture = this.level.gameContext.loader.resources[`assets/eggli/frame-${1}.png`].texture
-        this.sprite = new PIXI.Sprite(texture);
-
-
-        this.x = monsterData.x * 64;
-        this.y = monsterData.y * 64;
+        this.loadSimpleSprite(image, monsterData.x, monsterData.y);
 
         this.dir = monsterData.dir;
         this.dist = monsterData.dist;
 
         this.speed = monsterData.speed;
 
-        this.level.levelContainer.addChild(this.sprite);
         this.current = 0;
         this.currentFactor = 1;
 
@@ -70,8 +67,6 @@ export class MonsterEggly extends GameObject {
         }
     }
 
-
-
     canMoveTo(player) {
         return {
             restricted: false,
@@ -81,7 +76,7 @@ export class MonsterEggly extends GameObject {
     }
 
     static registerResources(loadingContext) {            
-        loadingContext.loader.add(`assets/eggli/frame-${1}.png`);
-        loadingContext.loader.add(`assets/eggli/gothit.png`);
+        loadingContext.add(image);
+        loadingContext.add(imagehit);
     }
 }

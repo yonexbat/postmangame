@@ -1,10 +1,13 @@
-import { GameObject } from './gameobject.js';
+import { GameObject, TileW, TileH } from './gameobject.js';
+
+const image = 'assets/grass.png';
 
 export class Floor extends GameObject {
 
+
     constructor(level) {
         super('Floor');
-        this.level = level;       
+        this.level = level;              
     }
 
     gameLoop(delta) {
@@ -12,15 +15,15 @@ export class Floor extends GameObject {
     }
 
     async load() {
-        let texture = this.level.gameContext.loader.resources["assets/grass.png"].texture
-        this.sprite = new PIXI.TilingSprite(texture, 64*10000, 64*10000);
+        let texture = this.getTexture(image);
+        this.sprite = new PIXI.TilingSprite(texture, TileW*10000, TileH*10000);
         this.sprite.x = 0;
         this.sprite.y = 0;
-        this.level.levelContainer.addChild(this.sprite);
+        this.addPixieSprite();        
     }
 
     static registerResources(loadingContext) {        
-        loadingContext.loader.add("assets/grass.png");
+        loadingContext.add(image);
     }
 
 }

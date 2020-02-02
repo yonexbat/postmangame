@@ -1,7 +1,8 @@
 import { GameObject } from "./gameobject.js";
+import { TileW } from "./gameobject.js";
+import { TileH } from "./gameobject.js";
 
 export class MonsterBirdi extends GameObject {
-
 
     constructor(level) {
         super('Birdi');
@@ -12,7 +13,7 @@ export class MonsterBirdi extends GameObject {
     static registerResources(loadingContext) {
         for (let i = 1; i <= 8; i++) {
             const frameImage = `assets/birdi/frame-${i}.png`;
-            loadingContext.loader.add(frameImage);
+            loadingContext.add(frameImage);
         }
     }
 
@@ -25,29 +26,28 @@ export class MonsterBirdi extends GameObject {
         let textures = [];
 
         for (let i = 1; i <= 8; i++) {
-
-            const frameImage = `assets/birdi/frame-${i}.png`;
-            const texture = this.level.gameContext.loader.resources[frameImage].texture;
+            const frameImage = `assets/birdi/frame-${i}.png`;          
+            const texture = this.getTexture(frameImage);
             textures.push(texture);
         }
 
         this.animatedSprites = new PIXI.AnimatedSprite(textures);
         this.animatedSprites.animationSpeed = 0.167;
-        this.animatedSprites.x = (64 - 64) / 2;
+        this.animatedSprites.x = (TileW - TileW) / 2;
 
         this.sprite.addChild(this.animatedSprites);
         this.animatedSprites.play();
 
 
-        this.x = monsterData.x * 64;
-        this.y = monsterData.y * 64;
+        this.x = monsterData.x * TileW;
+        this.y = monsterData.y * TileH;
         this.zIndex = 1;
 
 
         this.speed = monsterData.speed;
-        this.triggerdist = monsterData.triggerdist * 64;
+        this.triggerdist = monsterData.triggerdist * TileW;
 
-        this.level.levelContainer.addChild(this.sprite);
+        this.addPixieSprite();
         this.current = 0;
         this.currentFactor = 1;
 
@@ -74,11 +74,11 @@ export class MonsterBirdi extends GameObject {
 
             if (dirx > 0) {
                 this.animatedSprites.scale.x = 1;
-                this.animatedSprites.x = (64 - 64) / 2;
+                this.animatedSprites.x = (TileW - TileW) / 2;
 
             } else if (dirx < 0) {
                 this.animatedSprites.scale.x = -1;
-                this.animatedSprites.x = 64 - (64 - 64) / 2;
+                this.animatedSprites.x = TileW - (TileW - TileW) / 2;
             }
         }
 

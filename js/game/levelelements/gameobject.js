@@ -1,3 +1,7 @@
+
+export const TileW = 64;
+export const TileH = 64;
+
 export class GameObject {
 
     constructor(objectTypeAsString) {
@@ -32,6 +36,10 @@ export class GameObject {
 
     set zIndex(val) {
         this.sprite.zIndex = val;
+    }
+
+    gameLoop(delta) {
+
     }
 
     isPlayerOnIt() {
@@ -127,5 +135,29 @@ export class GameObject {
     removeSelf() {
         this.level.removeChild(this);
         this.sprite.visible = false;
+    }
+
+    addPixieSprite() {
+        if(this.sprite == undefined) {
+            throw Error(`property sprite not defined for object type ${this.objectType}` )
+        }
+        this.level.levelContainer.addChild(this.sprite);
+    }
+
+    getTexture(textureImage) {
+        return this.level.gameContext.loader.resources[textureImage].texture;
+    }
+
+    getResource(resourceName) {
+        return PIXI.Loader.shared.resources[resourceName];
+    }
+
+    loadSimpleSprite(resourcename, x, y) {
+
+        let texture = this.getTexture(resourcename);
+        this.sprite = new PIXI.Sprite(texture);
+        this.x = x * TileW;
+        this.y = y * TileH;        
+        this.addPixieSprite(); 
     }
 }
