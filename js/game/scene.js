@@ -8,6 +8,12 @@ export class Scene {
         this.gameContext = gameContext;  
     }
 
+    static registerResources(loadingContext) {        
+        LevelScene.registerResources(loadingContext);
+        GameOverScene.registerResources(loadingContext);
+        LevelCompletedScene.registerResources(loadingContext);
+    }
+
     async load() {
         this.levelScene = new LevelScene(this.gameContext);
         await this.levelScene.load(1);

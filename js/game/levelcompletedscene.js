@@ -1,8 +1,15 @@
+const completedSoundfile = 'assets/gamecompleted.mp3';
+
 export class LevelCompletedScene {
 
     constructor(gameContext) {
         this.gameContext = gameContext;  
         this.loadScene();  
+        this.playingsound = false;
+    }
+
+    static registerResources(loadingContext) {        
+        loadingContext.add(completedSoundfile);
     }
 
     loadScene() {
@@ -23,6 +30,11 @@ export class LevelCompletedScene {
 
     set visible(val) {
         this.levelContainer.visible = val;
+        if(val == true && this.playingsound == false) {
+            this.playingsound = true;
+            let sound = PIXI.Loader.shared.resources[completedSoundfile];
+            sound.sound.play();
+        }
     }
 
     get visible() {

@@ -16,6 +16,22 @@ export class LevelScene {
         this.gameoverListener = [];
         this.levelCompletedListener = [];        
     }
+
+    static registerResources(loadingContext) {        
+        const objectClasses = [
+            Player,
+            MonsterBirdi,
+            MonsterEggly,
+            MonsterCat,
+            Floor,
+            Wall,
+            Exit,
+        ];
+        
+        objectClasses.forEach(clazz => {
+            clazz.registerResources(loadingContext);
+        });
+    }
     
 
     async load(level) {

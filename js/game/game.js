@@ -1,12 +1,5 @@
 import { Keyboard } from "./keyboard.js";
 import { Scene } from "./scene.js";
-import { MonsterBirdi } from "./levelelements/monsterbirdi.js";
-import { Player } from "./levelelements/player.js";
-import { MonsterEggly } from "./levelelements/monstereggly.js";
-import {Floor} from "./levelelements/floor.js";
-import { Wall } from "./levelelements/wall.js";
-import { Exit } from "./levelelements/exit.js";
-import { MonsterCat } from "./levelelements/monstercat.js";
 import { LoadingContext } from "./loadingcontext.js";
 
 export class Game {
@@ -61,22 +54,9 @@ export class Game {
 
     loadAssets() {
 
-        const objectClasses = [
-            Player,
-            MonsterBirdi,
-            MonsterEggly,
-            MonsterCat,
-            Floor,
-            Wall,
-            Exit,
-        ];
-
         const loadingContext = new LoadingContext();
 
-        objectClasses.forEach(clazz => {
-            clazz.registerResources(loadingContext);
-        });
-       
+        Scene.registerResources(loadingContext);      
 
         PIXI.Loader.shared                       
             .load(() => { this.load() });
