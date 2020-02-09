@@ -10,16 +10,18 @@ import { Key } from './levelelements/key.js';
 
 export class LevelScene {
 
+
     constructor(gameContext) {
         this.gameContext = gameContext;
         this.children = [];
         this.width = 0;
         this.heigth = 0;
         this.gameoverListener = [];
-        this.levelCompletedListener = [];        
+        this.levelCompletedListener = [];  
     }
 
-    static registerResources(loadingContext) {        
+    static registerResources(loadingContext) {    
+
         const objectClasses = [
             Player,
             MonsterBirdi,
@@ -215,6 +217,9 @@ export class LevelScene {
         this.playerInfo.score += val;
     }
 
+    addInventoryItem(item) {
+        this.playerInfo.addInventoryItem(item);
+    }
 
     set visible(val) {
         this.levelContainer.visible = val;

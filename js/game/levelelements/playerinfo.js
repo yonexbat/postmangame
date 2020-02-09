@@ -1,4 +1,4 @@
-import { GameObject } from "./gameobject.js";
+import { GameObject,TileH, TileW } from "./gameobject.js";
 
 export class PlayerInfo extends GameObject {
 
@@ -6,6 +6,7 @@ export class PlayerInfo extends GameObject {
         super('Player');
         this.level = level;
         this._score = 0;
+        this.inventory = [];
     }
 
     static registerResources(loadingContext) {
@@ -40,7 +41,23 @@ export class PlayerInfo extends GameObject {
         this.score = 0;
     }
 
+    addInventoryItem(resourcename) {
+        let texture = this.getTexture(resourcename);
+        let inventorySprite = new PIXI.Sprite(texture);
+        this.inventory.push(inventorySprite);
+        let index = this.inventory.indexOf(inventorySprite);
+        const coords  = this.getInvetoryCoords(index);
+        inventorySprite.x = coords.x;
+        inventorySprite.y = coords.y;
+        this.sprite.addChild(inventorySprite);
+    }
 
+    getInvetoryCoords(index) {
+        let topleft = this.getTopLeft();
+        topleft.y += TileH;
+        topleft.x += TileW * index;
+        return topleft;
+    }
 
     getTopLeft() {
         const relX = window.innerWidth / 2;

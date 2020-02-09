@@ -16,6 +16,18 @@ export class Key extends GameObject {
         return true;
     }
 
+    gameLoop(delta) {
+        if(this.isPlayerOnIt()) {
+            this.keyFound();
+        } 
+    }
+
+    keyFound(){
+        this.level.addScore(500);
+        this.level.addInventoryItem(image);
+        this.removeSelf(); 
+    }
+
 
     static registerResources(loadingContext) {        
         loadingContext.add(image);
