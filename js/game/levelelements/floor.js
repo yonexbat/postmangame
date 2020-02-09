@@ -14,9 +14,9 @@ export class Floor extends GameObject {
 
     }
 
-    async load() {
+    async load(floordata) {
         let texture = this.getTexture(image);
-        this.sprite = new PIXI.TilingSprite(texture, TileW*10000, TileH*10000);
+        this.sprite = new PIXI.TilingSprite(texture, TileW*floordata.w, TileH*floordata.h);
         this.sprite.x = 0;
         this.sprite.y = 0;
         this.addPixieSprite();        

@@ -42,23 +42,18 @@ export class LevelScene {
         
         let levelData = await this.loadLevel(level);
         await this.buildLevel(levelData);
-        await this.loadWalls(levelData.walls);
     }
 
     async buildLevel(levelData) {
-        let floor = new Floor(this);
-        await floor.load();
 
-        let exit = new Exit(this);
-        await exit.load(levelData.exit);
-        this.children.push(exit);
-
+        await this.loadFloor(levelData.floor);
+        await this.loadExit(levelData.exit);
         await this.loadMonstersEggli(levelData.monsterseggli);
         await this.loadMonsterBirdy(levelData.monstersbirdi);
         await this.loadMonsterCat(levelData.monstercat);
-        
-        this.player = new Player(this);
-        await this.player.load(levelData.player);
+        await this.loadWalls(levelData.walls);
+        await this.loadPlayer(levelData.player);
+     
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
 
@@ -66,6 +61,22 @@ export class LevelScene {
         const url = `assets/level/level${level}.json`;
         let levelString =  await fetch(url);
         return levelString.json();
+    }
+
+    async loadPlayer(playerData) {
+        this.player = new Player(this);
+        await this.player.load(playerData);
+    }
+
+    async loadExit(exitData) {
+        let exit = new Exit(this);
+        await exit.load(exitData);
+        this.children.push(exit);
+    }
+
+    async loadFloor(floorData) {
+        let floor = new Floor(this);
+        await floor.load(floorData);
     }
 
     async loadWalls(wallData) {
