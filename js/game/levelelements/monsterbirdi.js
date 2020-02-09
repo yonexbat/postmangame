@@ -83,6 +83,7 @@ export class MonsterBirdi extends GameObject {
     birdDies(cat) {
         cat.meow();
         this.removeSelf();
+        this.level.addScore(100);
     }
 
     canMoveTo(player) {

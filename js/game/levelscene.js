@@ -5,6 +5,8 @@ import { MonsterEggly } from './levelelements/monstereggly.js';
 import { Floor } from './levelelements/floor.js';
 import { MonsterBirdi } from './levelelements/monsterbirdi.js';
 import { MonsterCat } from './levelelements/monstercat.js';
+import { PlayerInfo } from './levelelements/playerinfo.js';
+import { Key } from './levelelements/key.js';
 
 export class LevelScene {
 
@@ -26,6 +28,7 @@ export class LevelScene {
             Floor,
             Wall,
             Exit,
+            Key,
         ];
         
         objectClasses.forEach(clazz => {
@@ -53,6 +56,8 @@ export class LevelScene {
         await this.loadMonsterCat(levelData.monstercat);
         await this.loadWalls(levelData.walls);
         await this.loadPlayer(levelData.player);
+        await this.loadPlayerInfo();
+        await this.loadKeys(levelData.keys);
      
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
@@ -63,9 +68,22 @@ export class LevelScene {
         return levelString.json();
     }
 
+    async loadKeys(keyData) {
+        for(let keyInstanceData of keyData) {
+           let  key = new Key(this);
+           await key.load(keyInstanceData);
+           this.children.push(key);
+        }
+    }
+
     async loadPlayer(playerData) {
         this.player = new Player(this);
         await this.player.load(playerData);
+    }
+
+    async loadPlayerInfo() {
+        this.playerInfo = new PlayerInfo(this);
+        await this.playerInfo.load();
     }
 
     async loadExit(exitData) {
@@ -191,6 +209,10 @@ export class LevelScene {
     removeChild(obj) {
         const index = this.children.indexOf(obj);
         this.children.splice(index, 1);
+    }
+
+    addScore(val) {
+        this.playerInfo.score += val;
     }
 
 
