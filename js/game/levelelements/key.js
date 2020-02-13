@@ -24,7 +24,12 @@ export class Key extends GameObject {
 
     keyFound(){
         this.level.addScore(500);
-        this.level.addInventoryItem(image);
+        const inventoryItem = {
+            key: 'key',
+            resourcename: image
+        };
+
+        this.level.addInventoryItem(inventoryItem);
         this.removeSelf(); 
     }
 

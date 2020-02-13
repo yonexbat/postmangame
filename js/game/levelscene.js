@@ -7,6 +7,7 @@ import { MonsterBirdi } from './levelelements/monsterbirdi.js';
 import { MonsterCat } from './levelelements/monstercat.js';
 import { PlayerInfo } from './levelelements/playerinfo.js';
 import { Key } from './levelelements/key.js';
+import { Lock } from './levelelements/lock.js';
 
 export class LevelScene {
 
@@ -31,6 +32,7 @@ export class LevelScene {
             Wall,
             Exit,
             Key,
+            Lock,
         ];
         
         objectClasses.forEach(clazz => {
@@ -60,6 +62,7 @@ export class LevelScene {
         await this.loadPlayer(levelData.player);
         await this.loadPlayerInfo();
         await this.loadKeys(levelData.keys);
+        await this.loadLocks(levelData.locks);
      
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
@@ -75,6 +78,14 @@ export class LevelScene {
            let  key = new Key(this);
            await key.load(keyInstanceData);
            this.children.push(key);
+        }
+    }
+
+    async loadLocks(list) {
+        for(let instance of list) {
+           let  lock = new Lock(this);
+           await lock.load(instance);
+           this.children.push(lock);
         }
     }
 
@@ -130,6 +141,7 @@ export class LevelScene {
             this.children.push(monster);
         }
     }
+
 
 
     gameLoop(delta) {
@@ -219,6 +231,14 @@ export class LevelScene {
 
     addInventoryItem(item) {
         this.playerInfo.addInventoryItem(item);
+    }
+
+    numInventoryItems(key) {
+        return this.playerInfo.numInventoryItems(key);
+    }
+
+    removeOneInventoryItem(key) {
+        this.playerInfo.removeOneInventoryItem(key);
     }
 
     set visible(val) {

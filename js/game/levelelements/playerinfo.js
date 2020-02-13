@@ -1,4 +1,4 @@
-import { GameObject,TileH, TileW } from "./gameobject.js";
+import { GameObject, TileH, TileW } from "./gameobject.js";
 
 export class PlayerInfo extends GameObject {
 
@@ -6,7 +6,7 @@ export class PlayerInfo extends GameObject {
         super('Player');
         this.level = level;
         this._score = 0;
-        this.inventory = [];
+        this.inventory = new Map();
     }
 
     static registerResources(loadingContext) {
@@ -18,7 +18,7 @@ export class PlayerInfo extends GameObject {
 
     set score(val) {
         this._score = val;
-        this.setTextToDisplay();        
+        this.setTextToDisplay();
     }
 
     async load() {
@@ -41,15 +41,51 @@ export class PlayerInfo extends GameObject {
         this.score = 0;
     }
 
-    addInventoryItem(resourcename) {
-        let texture = this.getTexture(resourcename);
-        let inventorySprite = new PIXI.Sprite(texture);
-        this.inventory.push(inventorySprite);
-        let index = this.inventory.indexOf(inventorySprite);
-        const coords  = this.getInvetoryCoords(index);
-        inventorySprite.x = coords.x;
-        inventorySprite.y = coords.y;
-        this.sprite.addChild(inventorySprite);
+    addInventoryItem(inventoryItem) {
+        let texture = this.getTexture(inventoryItem.resourcename);
+        inventoryItem.inventorySprite = new PIXI.Sprite(texture);
+
+        let inventoryTypeArray;
+        if (this.inventory.has(inventoryItem.key)) {
+            inventoryTypeArray = this.inventory.get(inventoryItem.key);
+        } else {
+            inventoryTypeArray = [];
+            this.inventory.set(inventoryItem.key, inventoryTypeArray);
+        }
+        inventoryTypeArray.push(inventoryItem);
+
+        let index = this.getItemCount() - 1;
+        const coords = this.getInvetoryCoords(index);
+        inventoryItem.inventorySprite.x = coords.x;
+        inventoryItem.inventorySprite.y = coords.y;
+        this.sprite.addChild(inventoryItem.inventorySprite);
+    }
+
+    numInventoryItems(key) {
+        if (this.inventory.has(key)) {
+            let arr = this.inventory.get(key);
+            return arr.length;
+        }
+        return 0;
+    }
+
+    removeOneInventoryItem(key) {
+        if (this.numInventoryItems(key) > 0) {
+            const array = this.inventory.get(key);
+            const firstItem = array.pop();
+            if (array.length == 0) {
+                this.inventory.delete(key);
+            }
+            this.sprite.removeChild(firstItem.inventorySprite);
+        }
+    }
+
+    getItemCount() {
+        let count = 0;
+        for (let value of this.inventory.values()) {
+            count += value.length;
+        }
+        return count;
     }
 
     getInvetoryCoords(index) {
