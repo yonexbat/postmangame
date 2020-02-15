@@ -54,18 +54,28 @@ export class LevelScene {
 
     async buildLevel(levelData) {
 
-        await this.loadFloor(levelData.floor);
-        await this.loadExit(levelData.exit);
-        await this.loadMonstersEggli(levelData.monsterseggli);
-        await this.loadMonsterBirdy(levelData.monstersbirdi);
-        await this.loadMonsterCat(levelData.monstercat);
-        await this.loadWalls(levelData.walls);
+        
+
+        await this.loadItem(levelData.floor, Floor);
+        await this.loadItem(levelData.exit, Exit);    
+        await this.loadArray(levelData.monsterseggli, MonsterEggly);
+        await this.loadArray(levelData.monstersbirdi, MonsterBirdi);
+        await this.loadArray(levelData.keys, Key);
+        await this.loadArray(levelData.locks, Lock);
+        await this.loadArray(levelData.walls, Wall);
+        await this.loadArray(levelData.monstercat, MonsterCat);    
+        
         await this.loadPlayer(levelData.player);
-        await this.loadPlayerInfo();
-        await this.loadKeys(levelData.keys);
-        await this.loadLocks(levelData.locks);
+        this.playerInfo = await this.loadItem(null, PlayerInfo);
+        
      
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
+    }
+
+
+    async loadPlayer(playerData) {
+        this.player = new Player(this);
+        await this.player.load(playerData);
     }
 
     async loadLevel(level) {
@@ -81,88 +91,22 @@ export class LevelScene {
     }
 
 
-    async loadKeys(keyData) {
-        for(let keyInstanceData of keyData) {
-           let  key = new Key(this);
-           await key.load(keyInstanceData);
-           this.children.push(key);
-        }
-    }
-
-    async loadLocks(list) {
-        for(let instance of list) {
-           let  lock = new Lock(this);
-           await lock.load(instance);
-           this.children.push(lock);
-        }
-    }
-
-    async loadPlayer(playerData) {
-        this.player = new Player(this);
-        await this.player.load(playerData);
-    }
-
-    async loadPlayerInfo() {
-        this.playerInfo = new PlayerInfo(this);
-        await this.playerInfo.load();
-        this.children.push(this.playerInfo);
-    }
-
-    async loadExit(exitData) {
-        let exit = new Exit(this);
-        await exit.load(exitData);
-        this.children.push(exit);
-    }
-
-    async loadFloor(floorData) {
-        let floor = new Floor(this);
-        await floor.load(floorData);
-    }
-
-    async loadWalls(wallData) {
-        for(let wallinstanceDate of wallData) {
-            let wall = new Wall(this);
-            await wall.load(wallinstanceDate);
-            this.children.push(wall);
-        }
-    }
-
     async loadArray(dataList, constructorFn) {
         for(let dataItem of dataList) {
-            let createdItem = new constructorFn(this);
-            await createdItem.load(dataItem);
-            this.children.push(dataItem);
+            await this.loadItem(dataItem, constructorFn);
         }
     }
 
-    async loadMonstersEggli(monsterData) {
-        for(let monsterinstanceData of monsterData) {
-            let monster = new MonsterEggly(this);
-            await monster.load(monsterinstanceData);
-            this.children.push(monster);
-        }
-    }
-
-    async loadMonsterBirdy(monsterData) {
-        for(let monsterinstanceData of monsterData) {
-            let monster = new MonsterBirdi(this);
-            await monster.load(monsterinstanceData);
-            this.children.push(monster);
-        }
-    }
-
-    async loadMonsterCat(monsterData) {
-        for(let monsterinstanceData of monsterData) {
-            let monster = new MonsterCat(this);
-            await monster.load(monsterinstanceData);
-            this.children.push(monster);
-        }
+    async loadItem(data, constructorFn) {
+        let item = new constructorFn(this);
+        await item.load(data);        
+        this.children.push(item);        
+        return item;
     }
 
 
-
-    gameLoop(delta) {
-        this.player.gameLoop(delta);
+    gameLoop(delta) {      
+        this.player.gameLoop();
         this.children.forEach(x => {
             x.gameLoop(delta);
         });

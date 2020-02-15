@@ -10,10 +10,6 @@ export class Floor extends GameObject {
         this.level = level;              
     }
 
-    gameLoop(delta) {
-
-    }
-
     async load(floordata) {
         let texture = this.getTexture(image);
         this.sprite = new PIXI.TilingSprite(texture, TileW*floordata.w, TileH*floordata.h);
