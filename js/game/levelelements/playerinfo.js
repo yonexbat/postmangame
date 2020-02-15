@@ -41,9 +41,13 @@ export class PlayerInfo extends GameObject {
         this.score = 0;
     }
 
+    gameLoop(delta) {
+        this.setTextToDisplay();
+    }
+
     addInventoryItem(inventoryItem) {
         let texture = this.getTexture(inventoryItem.resourcename);
-        inventoryItem.inventorySprite = new PIXI.Sprite(texture);
+        inventoryItem.sprite = new PIXI.Sprite(texture);
 
         let inventoryTypeArray;
         if (this.inventory.has(inventoryItem.key)) {
@@ -56,9 +60,9 @@ export class PlayerInfo extends GameObject {
 
         let index = this.getItemCount() - 1;
         const coords = this.getInvetoryCoords(index);
-        inventoryItem.inventorySprite.x = coords.x;
-        inventoryItem.inventorySprite.y = coords.y;
-        this.sprite.addChild(inventoryItem.inventorySprite);
+        inventoryItem.sprite.x = coords.x;
+        inventoryItem.sprite.y = coords.y;
+        this.sprite.addChild(inventoryItem.sprite);
     }
 
     numInventoryItems(key) {
@@ -76,7 +80,7 @@ export class PlayerInfo extends GameObject {
             if (array.length == 0) {
                 this.inventory.delete(key);
             }
-            this.sprite.removeChild(firstItem.inventorySprite);
+            this.sprite.removeChild(firstItem.sprite);
         }
     }
 
@@ -105,8 +109,15 @@ export class PlayerInfo extends GameObject {
     }
 
     setTextToDisplay() {
-        const text = `Pünktli: ${this._score}`
-        this.toplefttext.text = text;
+        if (this.level.designMode) {
+            let x = Math.floor(this.level.player.x / 64);
+            let y = Math.floor(this.level.player.y / 64);
+            const text = `Pünktli: ${this._score}, x: ${x}, y: ${y}`;
+            this.toplefttext.text = text;
+        } else {
+            const text = `Pünktli: ${this._score}`;
+            this.toplefttext.text = text;
+        }
     }
 
 }

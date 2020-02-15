@@ -67,17 +67,23 @@ export class Player extends GameObject {
             this.animatedSprites.stop();
         }
 
-        this.sprite.x = this.sprite.x + next.vx;
-        this.sprite.y = this.sprite.y + next.vy;
+        if(this.level.designMode) {
+            this.sprite.x = this.sprite.x + this.vx*this.speed;
+            this.sprite.y = this.sprite.y + this.vy*this.speed;
+        } else {
 
-        if (next.restricted) {
-            if(next.vx === 0) {
-                this.vx = 0;
-            }
-            if(next.vy === 0) {
-                this.vy = 0;
-            }
-                        
+            this.sprite.x = this.sprite.x + next.vx;
+            this.sprite.y = this.sprite.y + next.vy;
+    
+            if (next.restricted) {
+                if(next.vx === 0) {
+                    this.vx = 0;
+                }
+                if(next.vy === 0) {
+                    this.vy = 0;
+                }
+                            
+            }           
         }
           
     }

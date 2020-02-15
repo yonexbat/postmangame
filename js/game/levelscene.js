@@ -43,6 +43,7 @@ export class LevelScene {
 
     async load(level) {
              
+        this.gameconfig = await this.loadConfig();
         this.levelContainer = new PIXI.Container();
         this.levelContainer.sortableChildren = true;
         this.gameContext.application.stage.addChild(this.levelContainer);
@@ -73,6 +74,13 @@ export class LevelScene {
         return levelString.json();
     }
 
+    async loadConfig() {
+        const url = `assets/gameconfig.json`;
+        let configString =  await fetch(url);
+        return configString.json();
+    }
+
+
     async loadKeys(keyData) {
         for(let keyInstanceData of keyData) {
            let  key = new Key(this);
@@ -97,6 +105,7 @@ export class LevelScene {
     async loadPlayerInfo() {
         this.playerInfo = new PlayerInfo(this);
         await this.playerInfo.load();
+        this.children.push(this.playerInfo);
     }
 
     async loadExit(exitData) {
@@ -247,5 +256,9 @@ export class LevelScene {
 
     get visible() {
         return this.levelContainer.visible;
+    }
+
+    get designMode() {
+        return this.gameconfig.designMode.enabled
     }
 }
