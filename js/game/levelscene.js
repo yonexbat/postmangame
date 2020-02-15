@@ -127,6 +127,14 @@ export class LevelScene {
         }
     }
 
+    async loadArray(dataList, constructorFn) {
+        for(let dataItem of dataList) {
+            let createdItem = new constructorFn(this);
+            await createdItem.load(dataItem);
+            this.children.push(dataItem);
+        }
+    }
+
     async loadMonstersEggli(monsterData) {
         for(let monsterinstanceData of monsterData) {
             let monster = new MonsterEggly(this);
@@ -259,6 +267,6 @@ export class LevelScene {
     }
 
     get designMode() {
-        return this.gameconfig.designMode.enabled
+        return this.gameconfig.designmode.enabled
     }
 }
