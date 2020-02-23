@@ -109,6 +109,9 @@ export class PlayerInfo extends GameObject {
     }
 
     setTextToDisplay() {
+        let pos = this.getTopLeft();
+        this.toplefttext.x = pos.x;
+        this.toplefttext.y = pos.y;
         if (this.level.designMode) {
             let x = Math.floor(this.level.player.x / 64);
             let y = Math.floor(this.level.player.y / 64);

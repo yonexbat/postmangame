@@ -1,5 +1,7 @@
 {
     "designmode" : {
-        "enabled": false
-    }
+        "enabled": true
+    },
+
+    "scale" : 1
 }

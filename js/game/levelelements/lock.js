@@ -2,6 +2,7 @@ import { GameObject } from "./gameobject.js";
 
 
 const image = 'assets/key/goldlock.png';
+const unlockosund = 'assets/key/keyjiggle.mp3';
 
 export class Lock extends GameObject {
     
@@ -34,6 +35,7 @@ export class Lock extends GameObject {
         if(this.removed === false) {
             this.removed = true;
             this.level.removeOneInventoryItem('key');
+            this.playsound(unlockosund);
         }
         this.removeSelf();
         this.level.addScore(1000);
@@ -42,5 +44,6 @@ export class Lock extends GameObject {
     
     static registerResources(loadingContext) {        
         loadingContext.add(image);
+        loadingContext.add(unlockosund);
     }
 }

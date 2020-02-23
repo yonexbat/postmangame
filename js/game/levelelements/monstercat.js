@@ -15,8 +15,7 @@ export class MonsterCat extends GameObject {
     }
 
     meow() {
-        let sound = PIXI.Loader.shared.resources[soundFile];
-        sound.sound.play();
+        this.playsound(soundFile);
     }
 
     static registerResources(loadingContext) {

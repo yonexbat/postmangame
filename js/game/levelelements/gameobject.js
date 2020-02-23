@@ -187,4 +187,9 @@ export class GameObject {
         this.h = TileH,
         this.w = TileW; 
     }
+
+    playsound(soundfile) {
+        let sound = PIXI.Loader.shared.resources[soundfile];
+        sound.sound.play();
+    }
 }

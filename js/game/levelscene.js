@@ -18,10 +18,10 @@ export class LevelScene {
         this.width = 0;
         this.heigth = 0;
         this.gameoverListener = [];
-        this.levelCompletedListener = [];  
+        this.levelCompletedListener = [];
     }
 
-    static registerResources(loadingContext) {    
+    static registerResources(loadingContext) {
 
         const objectClasses = [
             Player,
@@ -34,41 +34,42 @@ export class LevelScene {
             Key,
             Lock,
         ];
-        
+
         objectClasses.forEach(clazz => {
             clazz.registerResources(loadingContext);
         });
     }
-    
+
 
     async load(level) {
-             
+
         this.gameconfig = await this.loadConfig();
         this.levelContainer = new PIXI.Container();
         this.levelContainer.sortableChildren = true;
         this.gameContext.application.stage.addChild(this.levelContainer);
-        
+
         let levelData = await this.loadLevel(level);
+      
+        this.levelContainer.scale.x = this.gameconfig.scale;
+        this.levelContainer.scale.y = this.gameconfig.scale;
+      
         await this.buildLevel(levelData);
     }
 
     async buildLevel(levelData) {
 
-        
-
         await this.loadItem(levelData.floor, Floor);
-        await this.loadItem(levelData.exit, Exit);    
+        await this.loadItem(levelData.exit, Exit);
         await this.loadArray(levelData.monsterseggli, MonsterEggly);
         await this.loadArray(levelData.monstersbirdi, MonsterBirdi);
         await this.loadArray(levelData.keys, Key);
         await this.loadArray(levelData.locks, Lock);
         await this.loadArray(levelData.walls, Wall);
-        await this.loadArray(levelData.monstercat, MonsterCat);    
-        
+        await this.loadArray(levelData.monstercat, MonsterCat);
+
         await this.loadPlayer(levelData.player);
         this.playerInfo = await this.loadItem(null, PlayerInfo);
-        
-     
+
         this.gameContext.keyboard.addKeyboardListener((event) => this.keyBoardListener(event));
     }
 
@@ -80,32 +81,32 @@ export class LevelScene {
 
     async loadLevel(level) {
         const url = `assets/level/level${level}.json`;
-        let levelString =  await fetch(url);
+        let levelString = await fetch(url);
         return levelString.json();
     }
 
     async loadConfig() {
         const url = `assets/gameconfig.json`;
-        let configString =  await fetch(url);
+        let configString = await fetch(url);
         return configString.json();
     }
 
 
     async loadArray(dataList, constructorFn) {
-        for(let dataItem of dataList) {
+        for (let dataItem of dataList) {
             await this.loadItem(dataItem, constructorFn);
         }
     }
 
     async loadItem(data, constructorFn) {
         let item = new constructorFn(this);
-        await item.load(data);        
-        this.children.push(item);        
+        await item.load(data);
+        this.children.push(item);
         return item;
     }
 
 
-    gameLoop(delta) {      
+    gameLoop(delta) {
         this.player.gameLoop();
         this.children.forEach(x => {
             x.gameLoop(delta);
@@ -116,17 +117,17 @@ export class LevelScene {
     centerPlayer() {
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
-        const deltaX = this.player.x - centerX;
-        const deltaY = this.player.y - centerY;
-        this.levelContainer.x = -deltaX;
-        this.levelContainer.y = -deltaY;
+        const deltaX = (this.player.x - centerX);
+        const deltaY = (this.player.y - centerY);
+        this.levelContainer.x = -deltaX*this.gameconfig.scale;
+        this.levelContainer.y = -deltaY*this.gameconfig.scale;
     }
 
     keyBoardListener(keyboardEvent) {
         this.player.vx = keyboardEvent.vx;
         this.player.vy = keyboardEvent.vy;
 
-        
+
         this.levelContainer.x = this.player.x;
         this.levelContainer.y = this.player.y;
 
