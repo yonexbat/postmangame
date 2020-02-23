@@ -8,6 +8,7 @@ import { MonsterCat } from './levelelements/monstercat.js';
 import { PlayerInfo } from './levelelements/playerinfo.js';
 import { Key } from './levelelements/key.js';
 import { Lock } from './levelelements/lock.js';
+import { Coin } from './levelelements/coin.js';
 
 export class LevelScene {
 
@@ -33,6 +34,7 @@ export class LevelScene {
             Exit,
             Key,
             Lock,
+            Coin,
         ];
 
         objectClasses.forEach(clazz => {
@@ -64,6 +66,7 @@ export class LevelScene {
         await this.loadArray(levelData.monstersbirdi, MonsterBirdi);
         await this.loadArray(levelData.keys, Key);
         await this.loadArray(levelData.locks, Lock);
+        await this.loadArray(levelData.coins, Coin);
         await this.loadArray(levelData.walls, Wall);
         await this.loadArray(levelData.monstercat, MonsterCat);
 
