@@ -20,6 +20,7 @@ export class LevelScene {
         this.heigth = 0;
         this.gameoverListener = [];
         this.levelCompletedListener = [];
+        this.levelCompleted = false;
     }
 
     static registerResources(loadingContext) {
@@ -51,10 +52,10 @@ export class LevelScene {
         this.gameContext.application.stage.addChild(this.levelContainer);
 
         let levelData = await this.loadLevel(level);
-      
+
         this.levelContainer.scale.x = this.gameconfig.scale;
         this.levelContainer.scale.y = this.gameconfig.scale;
-      
+
         await this.buildLevel(levelData);
     }
 
@@ -122,8 +123,8 @@ export class LevelScene {
         const centerY = window.innerHeight / 2;
         const deltaX = (this.player.x - centerX);
         const deltaY = (this.player.y - centerY);
-        this.levelContainer.x = -deltaX*this.gameconfig.scale;
-        this.levelContainer.y = -deltaY*this.gameconfig.scale;
+        this.levelContainer.x = -deltaX * this.gameconfig.scale;
+        this.levelContainer.y = -deltaY * this.gameconfig.scale;
     }
 
     keyBoardListener(keyboardEvent) {
@@ -137,11 +138,14 @@ export class LevelScene {
     }
 
     triggerGameOver() {
-        this.gameoverListener.forEach(gameOverFn => gameOverFn());
+        if(this.levelCompleted === false) {
+            this.gameoverListener.forEach(gameOverFn => gameOverFn());
+        }
     }
 
     triggerLevelCompleted() {
         this.levelCompletedListener.forEach(completeFn => completeFn());
+        this.levelCompleted = true;
     }
 
     addGameOverListener(fn) {
