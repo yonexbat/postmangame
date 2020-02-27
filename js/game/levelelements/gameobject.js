@@ -163,6 +163,20 @@ export class GameObject {
         this.addPixieSprite(); 
     }
 
+    loadAdvancedSprite(resourcename, x, y) {
+        this.sprite = new PIXI.Container();
+        this.level.levelContainer.addChild(this.sprite);
+
+        this.x = x * TileW;
+        this.y = y * TileH;       
+        this.h = TileH,
+        this.w = TileW; 
+
+        let texture = this.getTexture(resourcename);
+        this.innersprite = new PIXI.Sprite(texture);
+        this.sprite.addChild(this.innersprite);
+    }
+
     loadAnimatedSprite(data) {        
 
         this.sprite = new PIXI.Container();

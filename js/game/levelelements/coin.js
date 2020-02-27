@@ -18,6 +18,7 @@ export class Coin extends GameObject {
         if (this.isPlayerOnIt()) {
             this.coinpickedUp();
         }
+        this.innersprite.rotation += delta*0.1;
     }
 
     coinpickedUp() {
@@ -28,8 +29,11 @@ export class Coin extends GameObject {
 
 
     async load(data) {
-        this.loadSimpleSprite(imageFile, data.x, data.y);
-        this.score = data.score
+        this.loadAdvancedSprite(imageFile, data.x, data.y);
+        this.innersprite.pivot.set(this.sprite.width/2, this.sprite.height/2);
+        this.innersprite.x = this.sprite.width/2;
+        this.innersprite.y = this.sprite.height/2;
+        this.score = data.score;        
     }
 
     static registerResources(loadingContext) {
