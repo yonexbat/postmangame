@@ -119,12 +119,12 @@ export class LevelScene {
     }
 
     centerPlayer() {
+        
         const centerX = window.innerWidth / 2;
         const centerY = window.innerHeight / 2;
-        const deltaX = (this.player.x - centerX);
-        const deltaY = (this.player.y - centerY);
-        this.levelContainer.x = -deltaX * this.gameconfig.scale;
-        this.levelContainer.y = -deltaY * this.gameconfig.scale;
+
+        this.levelContainer.x = -this.player.x * this.gameconfig.scale + centerX;
+        this.levelContainer.y = -this.player.y * this.gameconfig.scale + centerY;
     }
 
     keyBoardListener(keyboardEvent) {

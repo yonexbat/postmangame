@@ -100,8 +100,9 @@ export class PlayerInfo extends GameObject {
     }
 
     getTopLeft() {
-        const relX = window.innerWidth / 2;
-        const relY = window.innerHeight / 2;
+        const scale = this.level.gameconfig.scale;
+        const relX = window.innerWidth  / (2 * scale);
+        const relY = window.innerHeight / (2 * scale);
         return {
             x: -1 * relX,
             y: -1 * relY,
